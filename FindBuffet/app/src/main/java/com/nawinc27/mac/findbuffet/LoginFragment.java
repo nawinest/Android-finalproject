@@ -21,10 +21,11 @@ public class LoginFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        email_input = (EditText) getActivity().findViewById(R.id.email_input_login);
-        password_input = (EditText) getActivity().findViewById(R.id.password_input_login);
+        email_input = (EditText) getActivity().findViewById(R.id.email_input_register);
+        password_input = (EditText) getActivity().findViewById(R.id.password_input_register);
         login_btn = (TextView)getActivity().findViewById(R.id.login_btn_login);
         register_btn = (TextView) getActivity().findViewById(R.id.register_btn_login);
+
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override

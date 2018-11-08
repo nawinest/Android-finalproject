@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f5a623">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="89dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/plan_back"
+        android:text="กลับ"
+        android:fontFamily="@font/prompt_bold"
+        android:textColor="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="0dp"
+        android:layout_height="253dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        card_view:cardCornerRadius="12dp"
+        card_view:cardElevation="0dp"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintHorizontal_bias="0.555"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toBottomOf="@+id/textView4">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:text="22 มกราคม 2561"
+                android:textColor="#747474"
+                android:textSize="20dp"
+                card_view:fontFamily="@font/prompt_light"
+                card_view:layout_constraintBaseline_toBaselineOf="@+id/textView8"
+                card_view:layout_constraintStart_toEndOf="@+id/textView8" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:text="22 : 00 น."
+                android:textColor="#747474"
+                android:textSize="20dp"
+                card_view:fontFamily="@font/prompt_light"
+                card_view:layout_constraintBaseline_toBaselineOf="@+id/textView9"
+                card_view:layout_constraintStart_toEndOf="@+id/textView9" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="16dp"
+                android:text="ร้านชาบูอินดี้"
+                android:textColor="#f5a92c"
+                android:textSize="26dp"
+                card_view:fontFamily="@font/prompt_bold"
+                card_view:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="วันที่ :"
+                android:textColor="#4d4d4d"
+                android:textSize="22dp"
+                card_view:fontFamily="@font/prompt_bold"
+                card_view:layout_constraintStart_toStartOf="@+id/textView5"
+                card_view:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="เวลา :"
+                android:textColor="#4d4d4d"
+                android:textSize="22dp"
+                card_view:fontFamily="@font/prompt_bold"
+                card_view:layout_constraintStart_toStartOf="@+id/textView8"
+                card_view:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="24dp"
+                android:background="@drawable/plan_update"
+                android:fontFamily="@font/prompt_bold"
+                android:stateListAnimator="@null"
+                android:text="อัพเดทแผน"
+                android:textColor="#030200"
+                android:textSize="20dp"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintStart_toStartOf="parent" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/plan_delete"
+                android:fontFamily="@font/prompt_bold"
+                android:stateListAnimator="@null"
+                android:text="ลบแผน"
+                android:textColor="#505050"
+                android:textSize="20dp"
+                card_view:layout_constraintBottom_toBottomOf="@+id/button3"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintStart_toEndOf="@+id/button3"
+                card_view:layout_constraintTop_toTopOf="@+id/button3" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:text="เพิ่มแก้ไขแผน"
+        android:textColor="@android:color/black"
+        android:textSize="38dp"
+        app:fontFamily="@font/prompt_bold"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="77dp"
+        android:text="Plan Management"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="43dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:srcCompat="@drawable/icon_edit_yellowbg" />
+</android.support.constraint.ConstraintLayout>
