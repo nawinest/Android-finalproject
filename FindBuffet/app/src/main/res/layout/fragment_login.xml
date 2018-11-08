@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:layout_marginTop="124dp"
+        android:contentDescription="sdsd"
+        android:text="FindBuffet"
+        android:textColor="@android:color/black"
+        android:textSize="50dp"
+        app:fontFamily="@font/prompt_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="ยินดีต้อนรับเข้าสู่แอพผู้ช่วยนักกิน"
+        android:textColor="@android:color/black"
+        android:textSize="12dp"
+        app:fontFamily="@font/prompt_bold"
+        app:layout_constraintEnd_toEndOf="@+id/textView3"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:paddingLeft="9dp"
+        android:id="@+id/email_input_login"
+        android:layout_width="0dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/border_radius"
+        android:ems="10"
+        android:hint=" Email ex. sample@gmail.com"
+        android:inputType="textPersonName"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/password_input_login"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/border_radius"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="9dp"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="@+id/email_input_login"
+        app:layout_constraintStart_toStartOf="@+id/email_input_login"
+        app:layout_constraintTop_toBottomOf="@+id/email_input_login" />
+
+
+    <Button
+        android:id="@+id/login_btn_login"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginStart="64dp"
+        android:background="@drawable/radius_border"
+        android:padding="10dp"
+
+        android:text="เข้าสู่ระบบ"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        app:fontFamily="@font/prompt_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="344dp" />
+
+    <TextView
+        android:id="@+id/register_btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="สมัครสมาชิก"
+        android:textSize="10dp"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintTop_toBottomOf="@+id/login_btn_login"
+        tools:layout_editor_absoluteX="176dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/background_bottom" />
+
+
+</android.support.constraint.ConstraintLayout>

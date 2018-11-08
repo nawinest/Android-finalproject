@@ -39,11 +39,11 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/register_btn_login"
         app:layout_constraintTop_toTopOf="@+id/topsection" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/register_btn_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
@@ -66,7 +66,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/icon_profile"
         app:layout_constraintEnd_toEndOf="@+id/topsection"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        app:layout_constraintTop_toTopOf="@+id/register_btn_login" />
 
     <ImageView
         android:id="@+id/banner1"
@@ -77,7 +77,7 @@
         android:background="@drawable/round_outline"
         app:layout_constraintEnd_toEndOf="@+id/imageView2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/register_btn_login"
         app:layout_constraintTop_toTopOf="@+id/topsection"
         app:srcCompat="@drawable/banner_welcome1" />
 
