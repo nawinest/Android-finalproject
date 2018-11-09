@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_view, new EditPlanFragment())
+                    .replace(R.id.main_view, new RegisterFragment())
                     .addToBackStack(null)
                     .commit();
         }
