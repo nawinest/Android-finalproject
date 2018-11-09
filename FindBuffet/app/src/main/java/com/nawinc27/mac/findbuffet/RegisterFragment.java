@@ -70,8 +70,6 @@ public class RegisterFragment extends Fragment {
                 @Override
                 public void onSuccess(AuthResult authResult) {
                     sendVerifiedEmail(authResult.getUser());
-//                    createDBforUser(mAuth.getCurrentUser().getUid(), _name);
-//                    mAuth.signOut();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
