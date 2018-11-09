@@ -60,8 +60,6 @@ public class LoginFragment extends Fragment {
     }
 
     public void login(){
-
-
         String emailStr = email_input.getText().toString();
         String passwordStr = password_input.getText().toString();
         if(emailStr.isEmpty() || passwordStr.isEmpty()){
