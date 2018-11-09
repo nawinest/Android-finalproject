@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +21,8 @@ import com.nawinc27.mac.findbuffet.Main_menu.MainPageFragment;
 
 public class LoginFragment extends Fragment {
 
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
+    private FirebaseAuth mAuth;
+    private FirebaseUser mUser;
     private EditText email_input;
     private EditText password_input;
     private TextView login_btn;
@@ -30,7 +31,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        mAuth = FirebaseAuth.getInstance();
 
         email_input = (EditText) getActivity().findViewById(R.id.email_input_register);
         password_input = (EditText) getActivity().findViewById(R.id.password_input_register);
@@ -38,25 +39,37 @@ public class LoginFragment extends Fragment {
         login_btn = (TextView)getActivity().findViewById(R.id.login_btn_login);
         register_btn = (TextView) getActivity().findViewById(R.id.register_btn_login);
 
-
-        login_btn.setOnClickListener(new View.OnClickListener() {
+        alreadyLogin();
+        register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.main_view, new MainPageFragment())
+                        .replace(R.id.main_view, new RegisterFragment())
                         .addToBackStack(null)
                         .commit();
             }
         });
 
-        register_btn.setOnClickListener(new View.OnClickListener() {
+        login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
 
             }
         });
+
+    }
+
+    public void alreadyLogin(){
+        if (mAuth.getCurrentUser() != null){
+            getActivity()
+                    .getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_view, new MainPageFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
     }
 
     public void login(){
@@ -72,7 +85,7 @@ public class LoginFragment extends Fragment {
                     if(user.isEmailVerified()){
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.main_view, new RegisterFragment())
+                                .replace(R.id.main_view, new MainPageFragment())
                                 .addToBackStack(null)
                                 .commit();
                     }else{

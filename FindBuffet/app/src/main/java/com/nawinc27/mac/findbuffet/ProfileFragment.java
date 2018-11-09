@@ -5,12 +5,29 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+
+import org.w3c.dom.Text;
 
 public class ProfileFragment extends Fragment {
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore mDB;
+    private FirebaseUser mUid;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -24,5 +41,35 @@ public class ProfileFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             img_pro.setClipToOutline(true);
         }
+        mAuth = FirebaseAuth.getInstance();
+        mDB = FirebaseFirestore.getInstance();
+        getProfile();
+    }
+
+    public void getProfile(){
+
+        final String mEmail = mAuth.getCurrentUser().getEmail();
+        final String mUid = mAuth.getCurrentUser().getUid();
+
+        mDB.collection("customer")
+                .document(mUid)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
+                            if(snapshot.exists()){
+                                String mName = snapshot.getString("name");
+                                String mPhone = snapshot.getString("phone");
+//                                String mImage = snapshot.getString("image");
+                                TextView _profileName = getView().findViewById(R.id.profile_name);
+                                TextView _profilePhone = getView().findViewById(R.id.profile_phone_number);
+                                TextView _profileEmail = getView().findViewById(R.id.profile_email);
+
+                                _profileName.setText(mName);
+                                _profilePhone.setText(mPhone);
+                                _profileEmail.setText(mEmail);
+                            }
+                    }
+                });
+
     }
 }

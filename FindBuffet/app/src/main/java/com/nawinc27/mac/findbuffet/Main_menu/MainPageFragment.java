@@ -1,5 +1,6 @@
 package com.nawinc27.mac.findbuffet.Main_menu;
 
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import com.nawinc27.mac.findbuffet.ProfileFragment;
 import com.nawinc27.mac.findbuffet.R;
 
 import java.util.ArrayList;
@@ -45,7 +47,7 @@ public class MainPageFragment extends Fragment {
 
         adapter.notifyDataSetChanged();
 
-
+        initProfile();
 
 
     }
@@ -55,5 +57,19 @@ public class MainPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragement_mainpage, container , false);
 
+    }
+
+    public void initProfile(){
+        ImageView _profile = getView().findViewById(R.id.imageView2);
+        _profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new ProfileFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 }
