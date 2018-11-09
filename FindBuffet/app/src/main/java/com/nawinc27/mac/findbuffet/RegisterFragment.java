@@ -23,8 +23,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterFragment extends Fragment {
+
     private FirebaseFirestore mStore;
     private FirebaseAuth mAuth;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

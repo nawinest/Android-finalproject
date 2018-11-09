@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <ImageView
+        android:id="@+id/profile_banner"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/bg_black_opa60" />
+
+    <ImageView
+        android:id="@+id/img_profile"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="36dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/round_outline_profile"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.120000005"
+        app:srcCompat="@drawable/buffet_1" />
+
+    <TextView
+        android:id="@+id/profile_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:text="User Information"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintStart_toStartOf="@+id/profile_textView3"
+        app:layout_constraintTop_toBottomOf="@+id/img_profile" />
+
+    <TextView
+        android:id="@+id/profile_textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="- - - - - - - - - - - - - - - - - - - - - "
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_profile" />
+
+    <TextView
+        android:id="@+id/profile_textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="62dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="2dp"
+        android:text="โปรไฟล์"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/prompt_bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_textView6" />
+
+    <TextView
+        android:id="@+id/profile_textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="ชื่อ"
+        android:textSize="14sp"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintStart_toStartOf="@+id/profile_textView"
+        app:layout_constraintTop_toBottomOf="@+id/profile_textView" />
+
+    <TextView
+        android:id="@+id/profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="นาวิน พูลสวัสดิ์"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintStart_toStartOf="@+id/profile_textView2"
+        app:layout_constraintTop_toBottomOf="@+id/profile_textView2" />
+
+    <TextView
+        android:id="@+id/profile_textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="อีเมลล์"
+        android:textSize="12sp"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintStart_toStartOf="@+id/profile_name"
+        app:layout_constraintTop_toBottomOf="@+id/profile_name" />
+
+    <TextView
+        android:id="@+id/profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nawinc.work@gmail.com"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintStart_toStartOf="@+id/profile_textView4"
+        app:layout_constraintTop_toBottomOf="@+id/profile_textView4" />
+
+    <TextView
+        android:id="@+id/prifile_textview6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="เบอร์โทรติดต่อ"
+        android:textSize="12sp"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintStart_toStartOf="@+id/profile_email"
+        app:layout_constraintTop_toBottomOf="@+id/profile_email" />
+
+    <TextView
+        android:id="@+id/profile_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="097 - 0699988"
+        android:textSize="18sp"
+        app:fontFamily="@font/prompt_light"
+        app:layout_constraintStart_toStartOf="@+id/prifile_textview6"
+        app:layout_constraintTop_toBottomOf="@+id/prifile_textview6" />
+
+
+
+    <Button
+        android:id="@+id/profile_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorWhite"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/radius_border_yellow_solid"
+        android:text="กลับ"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/profile_signout_button"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark"
+        android:fontFamily="@font/prompt_bold"
+        android:text="ออกจากระบบ"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
