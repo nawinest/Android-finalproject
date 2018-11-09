@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,15 +45,16 @@ public class ProfileFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mDB = FirebaseFirestore.getInstance();
         getProfile();
+        initLogOut();
     }
 
-    public void getProfile(){
+    private void getProfile(){
 
         final String mEmail = mAuth.getCurrentUser().getEmail();
         final String mUid = mAuth.getCurrentUser().getUid();
 
         mDB.collection("customer")
-                .document(mUid)
+                .document(" Member " + mUid)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
@@ -71,5 +73,21 @@ public class ProfileFragment extends Fragment {
                     }
                 });
 
+    }
+
+    private void initLogOut(){
+        Button _btnOut = getView().findViewById(R.id.profile_signout_button);
+        _btnOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new LoginFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 }

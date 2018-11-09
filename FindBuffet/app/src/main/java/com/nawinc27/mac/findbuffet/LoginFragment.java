@@ -33,36 +33,9 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
 
-        email_input = (EditText) getActivity().findViewById(R.id.email_input_register);
-        password_input = (EditText) getActivity().findViewById(R.id.password_input_register);
-
-        login_btn = (TextView)getActivity().findViewById(R.id.login_btn_login);
-        register_btn = (TextView) getActivity().findViewById(R.id.register_btn_login);
-
         alreadyLogin();
-        register_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new RegisterFragment())
-                        .addToBackStack(null)
-                        .commit();
-
-            }
-        });
-
-        login_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new RegisterFragment())
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
+        LoginBtn();
+        RegisBtn();
     }
 
     public void alreadyLogin(){
@@ -76,36 +49,57 @@ public class LoginFragment extends Fragment {
         }
     }
 
-    public void login(){
-        String emailStr = email_input.getText().toString();
-        String passwordStr = password_input.getText().toString();
-        if(emailStr.isEmpty() || passwordStr.isEmpty()){
-            Toast.makeText(getActivity(),"Login failed", Toast.LENGTH_SHORT).show();
-        }else{
-            mAuth.signInWithEmailAndPassword(emailStr, passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
-                @Override
-                public void onSuccess(AuthResult authResult) {
-                    FirebaseUser user = authResult.getUser();
-                    if(user.isEmailVerified()){
-                        getActivity().getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.main_view, new MainPageFragment())
-                                .addToBackStack(null)
-                                .commit();
-                    }else{
-                        Toast.makeText(getActivity(), "Email not verified yet", Toast.LENGTH_SHORT).show();
-                    }
+    private void RegisBtn(){
+        register_btn = getActivity().findViewById(R.id.register_btn_login);
+        register_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity()
+                        .getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new RegisterFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+    }
+
+    private void LoginBtn(){
+        email_input = (EditText) getActivity().findViewById(R.id.email_input_register);
+        password_input = (EditText) getActivity().findViewById(R.id.password_input_register);
+        login_btn = getActivity().findViewById(R.id.login_btn_login);
+        login_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emailStr = email_input.getText().toString();
+                String passwordStr = password_input.getText().toString();
+                if(emailStr.isEmpty() || passwordStr.isEmpty()){
+                    Toast.makeText(getActivity(),"Login failed", Toast.LENGTH_SHORT).show();
+                }else{
+                    mAuth.signInWithEmailAndPassword(emailStr, passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                        @Override
+                        public void onSuccess(AuthResult authResult) {
+                            FirebaseUser user = authResult.getUser();
+                            if(user.isEmailVerified()){
+                                getActivity().getSupportFragmentManager()
+                                        .beginTransaction()
+                                        .replace(R.id.main_view, new MainPageFragment())
+                                        .addToBackStack(null)
+                                        .commit();
+                            }else{
+                                Toast.makeText(getActivity(), "Email not verified yet", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Email or Password Invalid", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getActivity(), "Email or Password Invalid", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        }
-
-
+            }
+        });
     }
 
     @Nullable
