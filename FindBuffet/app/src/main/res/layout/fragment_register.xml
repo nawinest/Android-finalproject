@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/password2_input_register2" />
 
     <EditText
-        android:id="@+id/login_email_input_register"
+        android:id="@+id/email_input_register"
         android:layout_width="0dp"
         android:layout_height="39dp"
         android:layout_marginStart="32dp"
@@ -91,7 +91,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/login_password_input_register"
+        android:id="@+id/password_input_register"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -101,9 +101,9 @@
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/login_email_input_register"
-        app:layout_constraintStart_toStartOf="@+id/login_email_input_register"
-        app:layout_constraintTop_toBottomOf="@+id/login_email_input_register" />
+        app:layout_constraintEnd_toEndOf="@+id/email_input_register"
+        app:layout_constraintStart_toStartOf="@+id/email_input_register"
+        app:layout_constraintTop_toBottomOf="@+id/email_input_register" />
 
 
     <EditText
@@ -117,10 +117,10 @@
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/login_email_input_register"
+        app:layout_constraintEnd_toEndOf="@+id/email_input_register"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/login_email_input_register"
-        app:layout_constraintTop_toBottomOf="@+id/login_password_input_register" />
+        app:layout_constraintStart_toStartOf="@+id/email_input_register"
+        app:layout_constraintTop_toBottomOf="@+id/password_input_register" />
 
     <EditText
         android:id="@+id/name_input_register"

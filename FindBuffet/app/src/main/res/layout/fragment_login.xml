@@ -51,7 +51,7 @@
         app:layout_constraintTop_toBottomOf="@+id/login_btn_login" />
 
     <EditText
-        android:id="@+id/login_email_input_register"
+        android:id="@+id/email_input_register"
         android:layout_width="0dp"
         android:layout_height="39dp"
         android:layout_marginStart="64dp"
@@ -70,7 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
-        android:id="@+id/login_password_input_register"
+        android:id="@+id/password_input_register"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginTop="11dp"
@@ -80,9 +80,9 @@
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:textSize="15dp"
-        app:layout_constraintEnd_toEndOf="@+id/login_email_input_register"
-        app:layout_constraintStart_toStartOf="@+id/login_email_input_register"
-        app:layout_constraintTop_toBottomOf="@+id/login_email_input_register" />
+        app:layout_constraintEnd_toEndOf="@+id/email_input_register"
+        app:layout_constraintStart_toStartOf="@+id/email_input_register"
+        app:layout_constraintTop_toBottomOf="@+id/email_input_register" />
 
 
     <ImageView
@@ -110,7 +110,7 @@
         android:text="เข้าสู่ระบบ"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_password_input_register" />
+        app:layout_constraintTop_toBottomOf="@+id/password_input_register" />
 
 
 </android.support.constraint.ConstraintLayout>

@@ -32,8 +32,8 @@ public class LoginFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
 
-        email_input = (EditText) getActivity().findViewById(R.id.login_email_input_register);
-        password_input = (EditText) getActivity().findViewById(R.id.login_password_input_register);
+        email_input = (EditText) getActivity().findViewById(R.id.email_input_register);
+        password_input = (EditText) getActivity().findViewById(R.id.password_input_register);
 
         login_btn = (TextView)getActivity().findViewById(R.id.login_btn_login);
         register_btn = (TextView) getActivity().findViewById(R.id.register_btn_login);
