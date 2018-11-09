@@ -42,19 +42,18 @@ public class LoginFragment extends Fragment {
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new MainPageFragment())
-                        .addToBackStack(null)
-                        .commit();
+                login();
             }
         });
 
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
-
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new RegisterFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
@@ -72,7 +71,7 @@ public class LoginFragment extends Fragment {
                     if(user.isEmailVerified()){
                         getActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.main_view, new RegisterFragment())
+                                .replace(R.id.main_view, new MainPageFragment())
                                 .addToBackStack(null)
                                 .commit();
                     }else{

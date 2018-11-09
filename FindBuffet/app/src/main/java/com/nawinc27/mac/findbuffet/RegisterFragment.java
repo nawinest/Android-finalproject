@@ -93,7 +93,7 @@ public class RegisterFragment extends Fragment {
                 String _name = name.getText().toString();
                 Customer cus = new Customer(_name);
                 mStore.collection("customer")
-                        .document(user.getUid())
+                        .document((" Member " + user.getUid()))
                         .set(cus).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
