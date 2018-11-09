@@ -11,13 +11,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.nawinc27.mac.findbuffet.Main_menu.MainPageFragment;
 
 public class LoginFragment extends Fragment {
 
-    private 
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    private EditText email_input ;
+    private EditText email_input;
     private EditText password_input;
     private TextView login_btn;
     private TextView register_btn;
@@ -48,11 +53,7 @@ public class LoginFragment extends Fragment {
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.main_view, new RegisterFragment())
-                        .addToBackStack(null)
-                        .commit();
+                login();
 
             }
         });
@@ -61,11 +62,31 @@ public class LoginFragment extends Fragment {
     public void login(){
 
 
-        String emailSrr = email_input.getText().toString();
+        String emailStr = email_input.getText().toString();
         String passwordStr = password_input.getText().toString();
-        if(emailSrr.isEmpty() || passwordStr.isEmpty()){
+        if(emailStr.isEmpty() || passwordStr.isEmpty()){
             Toast.makeText(getActivity(),"Login failed", Toast.LENGTH_SHORT).show();
         }else{
+            mAuth.signInWithEmailAndPassword(emailStr, passwordStr).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+                @Override
+                public void onSuccess(AuthResult authResult) {
+                    FirebaseUser user = authResult.getUser();
+                    if(user.isEmailVerified()){
+                        getActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.main_view, new RegisterFragment())
+                                .addToBackStack(null)
+                                .commit();
+                    }else{
+                        Toast.makeText(getActivity(), "Email not verified yet", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), "Email or Password Invalid", Toast.LENGTH_SHORT).show();
+                }
+            });
 
         }
 

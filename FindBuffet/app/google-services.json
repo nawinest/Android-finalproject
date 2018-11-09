@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "626976600407",
+    "firebase_url": "https://findbuffet-a597a.firebaseio.com",
+    "project_id": "findbuffet-a597a",
+    "storage_bucket": "findbuffet-a597a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626976600407:android:ea6d1bdb117e01fe",
+        "android_client_info": {
+          "package_name": "com.nawinc27.mac.findbuffet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "626976600407-l5hm4gqd2e54vhgs6utsgdn5tj9gp9l3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3qRsD9LdpoCy4j8yLywhmt7tXa3_Ti5c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
