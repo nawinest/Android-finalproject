@@ -48,14 +48,18 @@ public class LoginFragment extends Fragment {
                         .replace(R.id.main_view, new RegisterFragment())
                         .addToBackStack(null)
                         .commit();
+
             }
         });
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                login();
-
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new RegisterFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
