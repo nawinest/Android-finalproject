@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import com.nawinc27.mac.findbuffet.Buffet_List.BuffetList_fragment;
 import com.nawinc27.mac.findbuffet.ProfileFragment;
 import com.nawinc27.mac.findbuffet.R;
 
@@ -46,11 +49,29 @@ public class MainPageFragment extends Fragment {
 
 
         adapter.notifyDataSetChanged();
+        menu_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String name_foodGroup = menus.get(position).getName();
+                Bundle bd = new Bundle();
+                bd.putString("name_group", name_foodGroup);
+                BuffetList_fragment bf = new BuffetList_fragment();
+                bf.setArguments(bd);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, bf)
+                        .addToBackStack(null)
+                        .commit();
+                Log.d("Mainpage to Buffet_List", "success sent");
+
+            }
+        });
 
         initProfile();
 
 
     }
+
 
     @Nullable
     @Override

@@ -40,8 +40,24 @@ public class RegisterFragment extends Fragment {
                 registerInit();
             }
         });
+
+        logoutInit();
     }
 
+
+    public void logoutInit(){
+
+        Button back = getActivity().findViewById(R.id.back_btn_register);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new LoginFragment())
+                        .addToBackStack(null).commit();
+            }
+        });
+    }
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

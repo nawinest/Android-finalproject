@@ -3,6 +3,7 @@ package com.nawinc27.mac.findbuffet;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.nawinc27.mac.findbuffet.Buffet_List.BuffetList_fragment;
 import com.nawinc27.mac.findbuffet.Main_menu.MainPageFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -15,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_view, new LoginFragment())
+                    .replace(R.id.main_view, new MainPageFragment())
                     .addToBackStack(null)
                     .commit();
         }

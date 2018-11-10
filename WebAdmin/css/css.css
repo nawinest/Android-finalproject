@@ -1,0 +1,97 @@
+
+body{
+    background:#F5A623;
+    margin: 0;
+    padding: 0;
+}
+
+.topic{
+    margin-top: 1em;
+    font-family: 'Prompt', sans-serif;
+    text-align: center;
+   
+}
+
+.container > p{
+    font-family: 'Prompt', sans-serif;
+    font-weight: 300;
+    text-align: center;
+
+}
+
+#map_canvas{
+	margin: 0;
+    padding: 0;
+    height: 400px;
+}
+
+.label-input{
+    font-family: 'Prompt', sans-serif;
+    font-size: 1.4em;
+}
+.pick-map-wrap{
+    
+    border-radius: 7px;
+    background: #fff;
+	padding: 2em;
+	/*background-color: #e237a0;*/
+}
+
+.description_map{
+	color: #F5A623;
+	font-size: 0.7em;
+}
+
+.input-box{
+    font-size: 19px;
+    font-family: 'Prompt', sans-serif;
+    border : none;
+    padding: 0.2em;
+    border-radius: 0.25em;
+    margin-top:0.25em;
+    border: solid 1px #F5A623;
+    padding-left: 5px;
+}
+
+.ip2{
+    margin-bottom:1em;
+}
+
+.input-box:focus{
+    outline: none;
+}
+
+.ip3{
+    font-size: 19px;
+    font-family: 'Prompt', sans-serif;
+    border : none;
+    padding: 0.2em;
+    border-radius: 0.25em;
+    margin-top:0.4em;
+    border: solid 1px #F5A623;
+    padding-left: 5px;
+}
+
+.sep{
+    margin-bottom: 1em;
+}
+
+.radio_group{
+    font-size:0.9em;
+    font-weight: 300;
+}
+
+input{
+    font-weight: 300;
+}
+
+.button-submit{
+    font-family: 'Prompt', sans-serif;
+    border:none;
+    background: #F5A623;
+    font-size: 1.25em;
+    height: 60px;
+    width:100%;
+    border-radius: 0.4em;
+    
+}

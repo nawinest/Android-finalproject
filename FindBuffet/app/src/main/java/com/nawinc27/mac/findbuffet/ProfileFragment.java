@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
+import com.nawinc27.mac.findbuffet.Buffet_List.BuffetList_fragment;
 
 import org.w3c.dom.Text;
 
@@ -42,11 +43,30 @@ public class ProfileFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             img_pro.setClipToOutline(true);
         }
+
+
         mAuth = FirebaseAuth.getInstance();
         mDB = FirebaseFirestore.getInstance();
-        getProfile();
-        initLogOut();
+
+        if(mAuth.getCurrentUser() != null){
+            getProfile();
+            initLogOut();
+            initBackBtn();
+        }
+        else{
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_view, new LoginFragment())
+                    .addToBackStack(null).commit();
+        }
+
     }
+
+
+    public void initBackBtn(){
+        Button back = getActivity().findViewById(R.id.back_btn_profile);
+    }
+
 
     private void getProfile(){
 
