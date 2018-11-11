@@ -1,6 +1,7 @@
 package com.nawinc27.mac.findbuffet.Main_menu;
 
-import android.media.Image;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,14 +16,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ScrollView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.nawinc27.mac.findbuffet.Buffet_List.BuffetList_fragment;
-import com.nawinc27.mac.findbuffet.ProfileFragment;
+import com.nawinc27.mac.findbuffet.Profile.ProfileFragment;
 import com.nawinc27.mac.findbuffet.R;
 
 import java.util.ArrayList;
 
 public class MainPageFragment extends Fragment {
     private ArrayList<Menu> menus= new ArrayList<Menu>();
+    private String uid;
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -33,6 +38,24 @@ public class MainPageFragment extends Fragment {
         }
         ScrollView sv = (ScrollView) getActivity().findViewById(R.id.scroll_menu);
         sv.scrollTo(0, 0);
+
+        FirebaseUser _user = FirebaseAuth.getInstance().getCurrentUser();
+
+        SQLiteDatabase myDB = getActivity().openOrCreateDatabase("my.db", Context.MODE_PRIVATE,null);
+        if(_user == null){
+            Log.d("MainActivities Log : ", "didn't logged in");
+        }else{
+            uid = _user.getUid();
+            Log.d("MainActivities Log : ", "USER logged in");
+            //open database or create for use app at first time
+            myDB.execSQL("CREATE TABLE IF NOT EXISTS "+uid+"(_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "name VARCHAR(255), " +
+                    "date VARCHAR(255)," +
+                    "time VARCHAR(255))");
+            Log.d("MainActivities Log : ",uid);
+        }
+
+
 
         ListView menu_list = getActivity().findViewById(R.id.menu_listview);
         final MenuAdapter adapter = new MenuAdapter(getActivity(), android.R.layout.list_content , menus);

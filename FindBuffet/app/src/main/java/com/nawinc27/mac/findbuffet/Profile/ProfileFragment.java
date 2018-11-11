@@ -1,4 +1,4 @@
-package com.nawinc27.mac.findbuffet;
+package com.nawinc27.mac.findbuffet.Profile;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +22,10 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.nawinc27.mac.findbuffet.Buffet_List.BuffetList_fragment;
+import com.nawinc27.mac.findbuffet.LoginFragment;
+import com.nawinc27.mac.findbuffet.Main_menu.MainPageFragment;
+import com.nawinc27.mac.findbuffet.Plan.PlanFragment;
+import com.nawinc27.mac.findbuffet.R;
 
 import org.w3c.dom.Text;
 
@@ -52,6 +56,7 @@ public class ProfileFragment extends Fragment {
             getProfile();
             initLogOut();
             initBackBtn();
+            initSeePlanBtn();
         }
         else{
             getActivity().getSupportFragmentManager()
@@ -62,9 +67,30 @@ public class ProfileFragment extends Fragment {
 
     }
 
-
     public void initBackBtn(){
         Button back = getActivity().findViewById(R.id.back_btn_profile);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new MainPageFragment())
+                        .addToBackStack(null).commit();
+            }
+        });
+    }
+
+    public void initSeePlanBtn(){
+        Button wplan_btn = getActivity().findViewById(R.id.seeplan_btn);
+        wplan_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, new PlanFragment())
+                        .addToBackStack(null).commit();
+            }
+        });
     }
 
 
