@@ -18,9 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.nawinc27.mac.findbuffet.Model.Customer;
 
 public class RegisterFragment extends Fragment {
 
@@ -67,10 +65,11 @@ public class RegisterFragment extends Fragment {
 
     private void registerInit(){
 
-        EditText email = getActivity().findViewById(R.id.email_input_register);
+
         EditText password = getActivity().findViewById(R.id.password_input_register);
         EditText confPassword = getActivity().findViewById(R.id.password2_input_register2);
         EditText name = getActivity().findViewById(R.id.name_input_register);
+        EditText email = getActivity().findViewById(R.id.email_input_register);
         String _email = email.getText().toString();
         String _password = password.getText().toString();
         String _confPassword = confPassword.getText().toString();
@@ -106,7 +105,9 @@ public class RegisterFragment extends Fragment {
             public void onSuccess(Void aVoid) {
                 EditText name = getActivity().findViewById(R.id.name_input_register);
                 String _name = name.getText().toString();
-                Customer cus = new Customer(_name);
+                EditText email = getActivity().findViewById(R.id.email_input_register);
+                String _email = email.getText().toString();
+                Customer cus = new Customer(_name, _email, "กรุณาตั้งค่าเบอร์โทรของท่าน" , "https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png");
                 mStore.collection("customer")
                         .document((" Member " + user.getUid()))
                         .set(cus).addOnSuccessListener(new OnSuccessListener<Void>() {
