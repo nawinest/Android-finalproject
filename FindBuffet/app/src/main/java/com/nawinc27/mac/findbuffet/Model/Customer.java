@@ -3,13 +3,13 @@ package com.nawinc27.mac.findbuffet.Model;
 public class Customer {
 
     private String name;
-    private String email;
+//    private String email;
     private String phone = "กรุณาตั้งค่าเบอร์โทรของท่าน";
     private String imgProfileUrl;
 
-    public Customer(String name, String email, String phone, String imgProfileUrl) {
+    public Customer(String name, String phone, String imgProfileUrl) {
         this.name = name;
-        this.email = email;
+//        this.email = email;
         this.phone = phone;
         this.imgProfileUrl = imgProfileUrl;
     }
@@ -25,13 +25,13 @@ public class Customer {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getPhone() {
         return phone;

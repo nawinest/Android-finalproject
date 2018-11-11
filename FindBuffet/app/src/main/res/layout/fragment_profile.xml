@@ -189,4 +189,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageView
+        android:id="@+id/edit_profile_btn"
+        android:layout_width="80px"
+        android:layout_height="80px"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_textView"
+        app:layout_constraintStart_toEndOf="@+id/profile_textView3"
+        app:layout_constraintTop_toTopOf="@+id/profile_textView3"
+        app:srcCompat="@drawable/icon_edit_yellowbg" />
+
 </android.support.constraint.ConstraintLayout>

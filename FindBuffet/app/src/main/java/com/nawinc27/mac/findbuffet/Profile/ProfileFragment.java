@@ -34,6 +34,11 @@ public class ProfileFragment extends Fragment {
     private FirebaseAuth mAuth;
     private FirebaseFirestore mDB;
     private FirebaseUser mUid;
+    private TextView profileName ;
+    private TextView profilePhone ;
+    private TextView profileEmail ;
+    private ImageView img_profile;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,16 +52,19 @@ public class ProfileFragment extends Fragment {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             img_pro.setClipToOutline(true);
         }
-
-
+        mUid = FirebaseAuth.getInstance().getCurrentUser();
         mAuth = FirebaseAuth.getInstance();
         mDB = FirebaseFirestore.getInstance();
+        profileName = getActivity().findViewById(R.id.profile_name);
+        profilePhone = getActivity().findViewById(R.id.profile_phone_number);
+        profileEmail = getActivity().findViewById(R.id.profile_email);
 
         if(mAuth.getCurrentUser() != null){
             getProfile();
             initLogOut();
             initBackBtn();
             initSeePlanBtn();
+            initEditProfileBtn();
         }
         else{
             getActivity().getSupportFragmentManager()
@@ -66,6 +74,27 @@ public class ProfileFragment extends Fragment {
         }
 
     }
+
+    public void initEditProfileBtn(){
+        ImageView editBtn = getActivity().findViewById(R.id.edit_profile_btn);
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("uid", mUid.getUid());
+                EditProfileFragment editProfile = new EditProfileFragment();
+                editProfile.setArguments(bundle);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, editProfile)
+                        .addToBackStack(null)
+                        .commit();
+                Log.d("ProfileFragment", "send bundle to edit");
+
+            }
+        });
+    }
+
 
     public void initBackBtn(){
         Button back = getActivity().findViewById(R.id.back_btn_profile);
@@ -95,7 +124,6 @@ public class ProfileFragment extends Fragment {
 
 
     private void getProfile(){
-
         final String mEmail = mAuth.getCurrentUser().getEmail();
         final String mUid = mAuth.getCurrentUser().getUid();
 
@@ -107,14 +135,10 @@ public class ProfileFragment extends Fragment {
                             if(snapshot.exists()){
                                 String mName = snapshot.getString("name");
                                 String mPhone = snapshot.getString("phone");
-//                                String mImage = snapshot.getString("image");
-                                TextView _profileName = getView().findViewById(R.id.profile_name);
-                                TextView _profilePhone = getView().findViewById(R.id.profile_phone_number);
-                                TextView _profileEmail = getView().findViewById(R.id.profile_email);
-
-                                _profileName.setText(mName);
-                                _profilePhone.setText(mPhone);
-                                _profileEmail.setText(mEmail);
+                                Log.d("ProfileFragment....", mName);
+                                profileName.setText(mName);
+                                profilePhone.setText(mPhone);
+                                profileEmail.setText(mEmail);
                             }
                     }
                 });

@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.main_view, new EditProfileFragment())
+                    .replace(R.id.main_view, new MainPageFragment())
                     .addToBackStack(null)
                     .commit();
         }

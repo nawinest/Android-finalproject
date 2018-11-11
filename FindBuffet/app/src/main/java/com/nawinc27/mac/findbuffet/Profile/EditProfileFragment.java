@@ -14,18 +14,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.nawinc27.mac.findbuffet.Model.Customer;
 import com.nawinc27.mac.findbuffet.R;
 import com.squareup.picasso.Picasso;
 
@@ -33,12 +41,15 @@ import static android.app.Activity.RESULT_OK;
 
 public class EditProfileFragment extends Fragment {
 
-    private Button mUpload;
+    private Button mChoose;
+    private Button mUploader;
+    private FirebaseFirestore db;
     private ImageView mProfile;
     private static final int CAMERA_REQUEST_CODE = 1;
     private StorageReference mStorage;
     private Uri uri;
-    private ProgressBar mProgress;
+    private String uid, downloadImageUrl;
+
 
     @Nullable
     @Override
@@ -50,11 +61,18 @@ public class EditProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mProgress = getActivity().findViewById(R.id.progress_upload);
-        mUpload = getActivity().findViewById(R.id.capture_img_editprofile);
+        db = FirebaseFirestore.getInstance();
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            uid = bundle.getString("uid");
+            getEditInfo(uid);
+        }
+
+        mChoose = getActivity().findViewById(R.id.capture_img_editprofile);
+        mUploader = getActivity().findViewById(R.id.edit_btn);
         mStorage = FirebaseStorage.getInstance().getReference();
         mProfile = getActivity().findViewById(R.id.profile_img_editprofile);
-        mUpload.setOnClickListener(new View.OnClickListener() {
+        mChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -62,8 +80,32 @@ public class EditProfileFragment extends Fragment {
                 startActivityForResult(intent.createChooser(intent,"Choose App"), CAMERA_REQUEST_CODE);
             }
         });
+        mUploader.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                upload();
+            }
+        });
 
 
+    }
+
+    public void getEditInfo(String uid){
+        final EditText edit_name = ((EditText)getView().findViewById(R.id.edit_name));
+        final EditText edit_tel = ((EditText)getView().findViewById(R.id.edit_tel));
+        db.collection("customer")
+                .document(" Member " + uid)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
+                        if(snapshot.exists()){
+                            String mName = snapshot.getString("name");
+                            String mPhone = snapshot.getString("phone");
+                            edit_name.setText(mName);
+                            edit_tel.setText(mPhone);
+                        }
+                    }
+                });
     }
 
 
@@ -74,34 +116,59 @@ public class EditProfileFragment extends Fragment {
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK){
             uri = data.getData();
             Picasso.with(getActivity()).load(uri).fit().centerCrop().into(mProfile);
-            upload();
         }else{
             Toast.makeText(getActivity(),"Please Choose image", Toast.LENGTH_LONG).show();
         }
     }
 
+
     public void upload(){
         final StorageReference filePath = mStorage.child("Photo_profile").child("Profile");
-        filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        final UploadTask uploadTask = filePath.putFile(uri);
+
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                mProgress.setProgress(0);
-                String urmn = filePath.getDownloadUrl().toString();
-                Log.d("url", urmn);
-                Toast.makeText(getActivity(),"Uploading finished... ", Toast.LENGTH_LONG).show();
+
+
+
+                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                    @Override
+                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                        if(!task.isSuccessful()){
+                            throw task.getException();
+                        }
+                        downloadImageUrl = filePath.getDownloadUrl().toString();
+                        return filePath.getDownloadUrl();
+                    }
+                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        downloadImageUrl = task.getResult().toString();
+                        EditText edit_name = ((EditText)getActivity().findViewById(R.id.edit_name));
+                        EditText edit_tel = ((EditText)getActivity().findViewById(R.id.edit_tel));
+                        Customer cus = new Customer(edit_name.getText().toString(), edit_tel.getText().toString()
+                                ,downloadImageUrl);
+
+                        db.collection("customer").document((" Member " + uid))
+                                .set(cus).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getActivity(),"Edit your profile success", Toast.LENGTH_LONG).show();
+                            }
+                        });
+
+                        Toast.makeText(getActivity(),"Uploading finished... ", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getActivity(),"Uploading Fail, Sorry u must have logged in. ", Toast.LENGTH_LONG).show();
                 Log.d("Edit Profile", "Fail because user don't signed in to system");
-
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                mProgress.setProgress((int) progress);
             }
         });
     }
