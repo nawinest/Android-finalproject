@@ -115,6 +115,7 @@ public class EditProfileFragment extends Fragment {
 
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK){
             uri = data.getData();
+
             Picasso.with(getActivity()).load(uri).fit().centerCrop().into(mProfile);
         }else{
             Toast.makeText(getActivity(),"Please Choose image", Toast.LENGTH_LONG).show();
@@ -123,15 +124,12 @@ public class EditProfileFragment extends Fragment {
 
 
     public void upload(){
-        final StorageReference filePath = mStorage.child("Photo_profile").child("Profile");
+        final StorageReference filePath = mStorage.child("Photo_profile").child("Profile_" + uid);
         final UploadTask uploadTask = filePath.putFile(uri);
 
         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-
-
                 Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
                     public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {

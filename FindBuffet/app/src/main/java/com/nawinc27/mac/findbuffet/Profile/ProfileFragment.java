@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,6 +27,7 @@ import com.nawinc27.mac.findbuffet.LoginFragment;
 import com.nawinc27.mac.findbuffet.Main_menu.MainPageFragment;
 import com.nawinc27.mac.findbuffet.Plan.PlanFragment;
 import com.nawinc27.mac.findbuffet.R;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -37,7 +39,7 @@ public class ProfileFragment extends Fragment {
     private TextView profileName ;
     private TextView profilePhone ;
     private TextView profileEmail ;
-    private ImageView img_profile;
+    private ImageView profile_img;
 
     @Nullable
     @Override
@@ -55,6 +57,7 @@ public class ProfileFragment extends Fragment {
         mUid = FirebaseAuth.getInstance().getCurrentUser();
         mAuth = FirebaseAuth.getInstance();
         mDB = FirebaseFirestore.getInstance();
+        profile_img = getActivity().findViewById(R.id.img_profile);
         profileName = getActivity().findViewById(R.id.profile_name);
         profilePhone = getActivity().findViewById(R.id.profile_phone_number);
         profileEmail = getActivity().findViewById(R.id.profile_email);
@@ -135,10 +138,13 @@ public class ProfileFragment extends Fragment {
                             if(snapshot.exists()){
                                 String mName = snapshot.getString("name");
                                 String mPhone = snapshot.getString("phone");
+                                String mProfile_image = snapshot.getString("imgProfileUrl");
                                 Log.d("ProfileFragment....", mName);
                                 profileName.setText(mName);
                                 profilePhone.setText(mPhone);
                                 profileEmail.setText(mEmail);
+                                Glide.with(getActivity()).load(mProfile_image).into(profile_img);
+
                             }
                     }
                 });
@@ -160,4 +166,6 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
+
+
 }

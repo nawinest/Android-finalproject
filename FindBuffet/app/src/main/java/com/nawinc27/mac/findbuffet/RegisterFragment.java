@@ -107,7 +107,7 @@ public class RegisterFragment extends Fragment {
                 String _name = name.getText().toString();
                 EditText email = getActivity().findViewById(R.id.email_input_register);
                 String _email = email.getText().toString();
-                Customer cus = new Customer(_name, "กรุณาตั้งค่าเบอร์โทรของท่าน" , "https://d2x5ku95bkycr3.cloudfront.net/App_Themes/Common/images/profile/0_200.png");
+                Customer cus = new Customer(_name, "กรุณาตั้งค่าเบอร์โทรของท่าน" , "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOp--jNBmsQj6naeTKbOsGOPiuCygH99c2kYDeNGwgj9ytHhGi");
                 mStore.collection("customer")
                         .document((" Member " + user.getUid()))
                         .set(cus).addOnSuccessListener(new OnSuccessListener<Void>() {
