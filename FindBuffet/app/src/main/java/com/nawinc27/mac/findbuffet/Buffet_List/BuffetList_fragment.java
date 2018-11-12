@@ -15,12 +15,28 @@ import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.nawinc27.mac.findbuffet.LoginFragment;
 import com.nawinc27.mac.findbuffet.Main_menu.MainPageFragment;
 import com.nawinc27.mac.findbuffet.Model.Buffet;
 import com.nawinc27.mac.findbuffet.R;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class BuffetList_fragment extends Fragment {
 
@@ -29,49 +45,61 @@ public class BuffetList_fragment extends Fragment {
     private String header;
     private BuffetAdapter grid_adapter;
 
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore mDB;
+    private FirebaseUser mUid;
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Bundle bundle = getArguments();
-        if(bundle != null){
-            header = bundle.getString("name_group");
-            Log.d("Buffet List" , "header : "+ header);
-            editHeader(header);
+        mUid = FirebaseAuth.getInstance().getCurrentUser();
+        mAuth = FirebaseAuth.getInstance();
+        mDB = FirebaseFirestore.getInstance();
+
+        if(mAuth.getCurrentUser() != null){
+            Bundle bundle = getArguments();
+            if(bundle != null){
+                header = bundle.getString("name_group");
+                Log.d("Buffet List" , "header : "+ header);
+                editHeader(header);
+            }
+
+            buffets.add(new Buffet("ร้านลาวา","LAVA","41/51"
+                    ,"097-6998888","เปิดทุกวัน 12:00 - 24:00","13.722269","100.76162199999999"
+                    ,new String[]{"https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2FAumKum-22.jpg?alt=media&token=33be9ef2-e306-4c21-9973-adc11f4235d6"
+                    ,"https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2Ffoody-upload-api-foody-mobile-960x550-jpg-171031172448.jpg?alt=media&token=e2d3df00-aece-4928-a1d5-ec286d0f13a8"}));
+
+            EditText filterText = getActivity().findViewById(R.id.search_bar);
+            filterText.addTextChangedListener(filterTextWatcher);
+
+            buffetGrid = getActivity().findViewById(R.id.grid_buffet_list);
+            buffetGrid.setTextFilterEnabled(true);
+            grid_adapter = new BuffetAdapter(getActivity() , (ArrayList<Buffet>) buffets);
+            buffetGrid.setAdapter(grid_adapter);
+
+            grid_adapter.notifyDataSetChanged();
+
+            mDB.collection("Restuarant_Buffet").document("beef").collection("beef")
+                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                    for (QueryDocumentSnapshot query : queryDocumentSnapshots){
+                        Log.d("............",query.getString("name_en"));
+                    }
+                }
+            });
+        }
+        else{
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.main_view, new LoginFragment())
+                    .addToBackStack(null).commit();
         }
 
-
-        buffets.add(new Buffet("ร้านหวังหมาฮั่น" , "Ma Hun" , "ร้านอาหารอายุ 100 ปี  "
-                , " 097 - 0699888" , "เปิดทุกวันจันทร์ - ศุกร์ | 09 : 00 - 24 : 00"
-                , "13.818340","100.588078",1));
-        buffets.add(new Buffet("ร้านหวังหมาฮั่น" , "ZAZAZA" , "ร้านอาหารอายุ 100 ปี  "
-                , " 097 - 0699888" , "เปิดทุกวันจันทร์ - ศุกร์ | 09 : 00 - 24 : 00"
-                , "13.818340","100.588078",1));
-        buffets.add(new Buffet("ร้านหวังหมาฮั่น" , "Ma Hun" , "ร้านอาหารอายุ 100 ปี  "
-                , " 097 - 0699888" , "เปิดทุกวันจันทร์ - ศุกร์ | 09 : 00 - 24 : 00"
-                , "13.818340","100.588078",1));
-        buffets.add(new Buffet("ร้านบุเฟต์ทะเลเผาเนื้อย่าง สาขาราชดำเนิน" , "Ma Hun" , "ร้านอาหารอายุ 100 ปี  "
-                , " 097 - 0699888" , "เปิดทุกวันจันทร์ - ศุกร์ | 09 : 00 - 24 : 00"
-                , "13.818340","100.588078",1));
-        buffets.add(new Buffet("ร้านหวังหมาฮั่น" , "Ma Hun" , "ร้านอาหารอายุ 100 ปี  "
-                , " 097 - 0699888" , "เปิดทุกวันจันทร์ - ศุกร์ | 09 : 00 - 24 : 00"
-                , "13.818340","100.588078",1));
-        buffets.add(new Buffet("ร้านบุเฟต์ทะเลเผาเนื้อย่าง สาขาราชดำเนิน" , "Zap Kua" , "ร้านอาหารอายุ 100 ปี  "
-                , " 097 - 0699888" , "เปิดทุกวันจันทร์ - ศุกร์ | 09 : 00 - 24 : 00"
-                , "13.818340","100.588078",1));
-
-
-        EditText filterText = getActivity().findViewById(R.id.search_bar);
-        filterText.addTextChangedListener(filterTextWatcher);
-
-        buffetGrid = getActivity().findViewById(R.id.grid_buffet_list);
-        buffetGrid.setTextFilterEnabled(true);
-        grid_adapter = new BuffetAdapter(getActivity() , (ArrayList<Buffet>) buffets);
-        buffetGrid.setAdapter(grid_adapter);
-
-
-        grid_adapter.notifyDataSetChanged();
         initBackBtn();
+
     }
 
     private TextWatcher filterTextWatcher = new TextWatcher() {

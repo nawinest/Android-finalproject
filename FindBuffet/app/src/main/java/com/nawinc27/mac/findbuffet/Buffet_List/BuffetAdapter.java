@@ -78,12 +78,12 @@ public class BuffetAdapter extends BaseAdapter implements Filterable {
                     if(filterList.get(i).getName_en().contains(constraint)){
                         Buffet b = new Buffet(filterList.get(i).getName_th(),
                                 filterList.get(i).getName_en(),
-                                filterList.get(i).getDescrition(),
-                                filterList.get(i).getContact(),
+                                filterList.get(i).getAddress(),
+                                filterList.get(i).getTelephone(),
                                 filterList.get(i).getTime(),
                                 filterList.get(i).getLat(),
                                 filterList.get(i).getLng(),
-                                filterList.get(i).getType_buffet());
+                                filterList.get(i).getImage_url());
                         filters.add(b);
                     }
                 }
