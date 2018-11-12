@@ -52,7 +52,6 @@ public class BuffetAdapter extends BaseAdapter implements Filterable {
         TextView name_en = buffetItem.findViewById(R.id.name_en);
 
         name_th.setText(buffets.get(position).getName_th());
-        Log.d("Buffet" , buffets.get(position).getName_th() + " from adapter");
         name_en.setText(buffets.get(position).getName_en());
         return buffetItem;
     }
@@ -66,7 +65,6 @@ public class BuffetAdapter extends BaseAdapter implements Filterable {
     }
 
     class CustomFilter extends Filter{
-
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();

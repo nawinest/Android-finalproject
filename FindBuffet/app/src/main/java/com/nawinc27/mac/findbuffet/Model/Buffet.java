@@ -1,5 +1,7 @@
 package com.nawinc27.mac.findbuffet.Model;
 
+import java.util.List;
+
 public class Buffet {
     private String name_th;
     private String name_en;
@@ -8,12 +10,12 @@ public class Buffet {
     private String time;
     private String lat;
     private String lng;
-    private String[] image_url;
+    private List<String> image_url;
 
     public Buffet() {
     }
 
-    public Buffet(String name_th, String name_en, String address, String telephone, String time, String lat, String lng, String[] image_url) {
+    public Buffet(String name_th, String name_en, String address, String telephone, String time, String lat, String lng, List<String> image_url) {
         this.name_th = name_th;
         this.name_en = name_en;
         this.address = address;
@@ -24,11 +26,11 @@ public class Buffet {
         this.image_url = image_url;
     }
 
-    public String[] getImage_url() {
+    public List<String>  getImage_url() {
         return image_url;
     }
 
-    public void setImage_url(String[] image_url) {
+    public void setImage_url(List<String>  image_url) {
         this.image_url = image_url;
     }
 

@@ -33,6 +33,7 @@ import com.nawinc27.mac.findbuffet.Model.Buffet;
 import com.nawinc27.mac.findbuffet.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -57,6 +58,10 @@ public class BuffetList_fragment extends Fragment {
         mUid = FirebaseAuth.getInstance().getCurrentUser();
         mAuth = FirebaseAuth.getInstance();
         mDB = FirebaseFirestore.getInstance();
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setTimestampsInSnapshotsEnabled(true)
+                .build();
+        mDB.setFirestoreSettings(settings);
 
         if(mAuth.getCurrentUser() != null){
             Bundle bundle = getArguments();
@@ -68,8 +73,8 @@ public class BuffetList_fragment extends Fragment {
 
             buffets.add(new Buffet("ร้านลาวา","LAVA","41/51"
                     ,"097-6998888","เปิดทุกวัน 12:00 - 24:00","13.722269","100.76162199999999"
-                    ,new String[]{"https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2FAumKum-22.jpg?alt=media&token=33be9ef2-e306-4c21-9973-adc11f4235d6"
-                    ,"https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2Ffoody-upload-api-foody-mobile-960x550-jpg-171031172448.jpg?alt=media&token=e2d3df00-aece-4928-a1d5-ec286d0f13a8"}));
+                    ,new ArrayList<String>(Arrays.asList("https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2FAumKum-22.jpg?alt=media&token=33be9ef2-e306-4c21-9973-adc11f4235d6"
+                    ,"https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2Ffoody-upload-api-foody-mobile-960x550-jpg-171031172448.jpg?alt=media&token=e2d3df00-aece-4928-a1d5-ec286d0f13a8"))));
 
             EditText filterText = getActivity().findViewById(R.id.search_bar);
             filterText.addTextChangedListener(filterTextWatcher);
@@ -80,16 +85,6 @@ public class BuffetList_fragment extends Fragment {
             buffetGrid.setAdapter(grid_adapter);
 
             grid_adapter.notifyDataSetChanged();
-
-            mDB.collection("Restuarant_Buffet").document("beef").collection("beef")
-                    .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                @Override
-                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                    for (QueryDocumentSnapshot query : queryDocumentSnapshots){
-                        Log.d("............",query.getString("name_en"));
-                    }
-                }
-            });
         }
         else{
             getActivity().getSupportFragmentManager()
@@ -98,6 +93,25 @@ public class BuffetList_fragment extends Fragment {
                     .addToBackStack(null).commit();
         }
 
+        Log.d("Services : " , "Finished");
+        mDB.collection("Restuarant_Buffet").document("beef").collection("beef")
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot query : queryDocumentSnapshots){
+                    Log.d("....." , query.getString("name_th"));
+
+                    Buffet bf = query.toObject(Buffet.class);
+                    buffets.add(bf);
+                }
+                grid_adapter.notifyDataSetChanged();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Services : " , "ERROR : " + e.toString().toUpperCase());
+            }
+        });
         initBackBtn();
 
     }
@@ -109,7 +123,6 @@ public class BuffetList_fragment extends Fragment {
             // TODO Auto-generated method stub
 
         }
-
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count,
                                       int after) {
