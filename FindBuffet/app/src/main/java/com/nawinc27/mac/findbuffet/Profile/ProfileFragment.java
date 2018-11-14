@@ -41,6 +41,9 @@ public class ProfileFragment extends Fragment {
     private TextView profilePhone ;
     private TextView profileEmail ;
     private ImageView profile_img;
+    String mName;
+    String mPhone ;
+    String mProfile_image;
 
     @Nullable
     @Override
@@ -60,12 +63,9 @@ public class ProfileFragment extends Fragment {
         profilePhone = getActivity().findViewById(R.id.profile_phone_number);
         profileEmail = getActivity().findViewById(R.id.profile_email);
 
+
         if(mAuth.getCurrentUser() != null){
             getProfile();
-            initLogOut();
-            initBackBtn();
-            initSeePlanBtn();
-            initEditProfileBtn();
         }
         else{
             getActivity().getSupportFragmentManager()
@@ -73,6 +73,9 @@ public class ProfileFragment extends Fragment {
                     .replace(R.id.main_view, new LoginFragment())
                     .addToBackStack(null).commit();
         }
+        initLogOut();
+        initSeePlanBtn();
+        initBackBtn();
 
     }
 
@@ -83,6 +86,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("uid", mUid.getUid());
+                bundle.putString("downloadUrl" , mProfile_image);
                 EditProfileFragment editProfile = new EditProfileFragment();
                 editProfile.setArguments(bundle);
                 getActivity().getSupportFragmentManager()
@@ -128,15 +132,17 @@ public class ProfileFragment extends Fragment {
         final String mEmail = mAuth.getCurrentUser().getEmail();
         final String mUid = mAuth.getCurrentUser().getUid();
 
+
+
         mDB.collection("customer")
                 .document(" Member " + mUid)
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(DocumentSnapshot snapshot, FirebaseFirestoreException e) {
                             if(snapshot.exists()){
-                                String mName = snapshot.getString("name");
-                                String mPhone = snapshot.getString("phone");
-                                String mProfile_image = snapshot.getString("imgProfileUrl");
+                                mName = snapshot.getString("name");
+                                mPhone = snapshot.getString("phone");
+                                mProfile_image = snapshot.getString("imgProfileUrl");
                                 Log.d("ProfileFragment....", mName);
                                 profileName.setText(mName);
                                 profilePhone.setText(mPhone);
@@ -146,10 +152,11 @@ public class ProfileFragment extends Fragment {
                                                 .placeholder(R.mipmap.ic_launcher)
                                                 .centerCrop().circleCrop())
                                         .into(profile_img);
+
                             }
                     }
                 });
-
+        initEditProfileBtn();
     }
 
     private void initLogOut(){

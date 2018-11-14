@@ -78,7 +78,7 @@ public class BuffetList_fragment extends Fragment {
                         .beginTransaction()
                         .replace(R.id.main_view, new LoginFragment())
                         .addToBackStack(null).commit();
-                Toast.makeText(getActivity(), "Sorry , It have some problem with Program" , Toast.LENGTH_LONG);
+                Toast.makeText(getActivity(), "Sorry , It have some problem with Program" , Toast.LENGTH_LONG).show();
             }
             buffets.clear();
             buffets.add(new Buffet("ร้านลาวา","LAVA","41/51"

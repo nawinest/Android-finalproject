@@ -49,7 +49,9 @@ public class EditProfileFragment extends Fragment {
     private StorageReference mStorage;
     private Uri uri;
     private String uid, downloadImageUrl;
-
+    private String imgUrlFromProfile;
+    private boolean isUserPickImage = false;
+    private Button back_btn_edit_profile;
 
     @Nullable
     @Override
@@ -65,6 +67,8 @@ public class EditProfileFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null){
             uid = bundle.getString("uid");
+            imgUrlFromProfile = bundle.getString("downloadUrl");
+            downloadImageUrl = imgUrlFromProfile;
             getEditInfo(uid);
         }
 
@@ -72,7 +76,11 @@ public class EditProfileFragment extends Fragment {
         mUploader = getActivity().findViewById(R.id.edit_btn);
         mStorage = FirebaseStorage.getInstance().getReference();
         mProfile = getActivity().findViewById(R.id.profile_img_editprofile);
-        mChoose.setOnClickListener(new View.OnClickListener() {
+        back_btn_edit_profile = getActivity().findViewById(R.id.back_btn_edit_profile);
+        initBackBtn();
+
+        //change from choose button
+        mProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_PICK);
@@ -86,6 +94,7 @@ public class EditProfileFragment extends Fragment {
                 upload();
             }
         });
+
 
 
     }
@@ -112,62 +121,94 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d("Edit profile","Result code : " + resultCode +"\n requestCode : " + requestCode);
 
         if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK){
             uri = data.getData();
-
             Picasso.with(getActivity()).load(uri).fit().centerCrop().into(mProfile);
+            isUserPickImage = true;
         }else{
+            isUserPickImage = false;
+            downloadImageUrl = imgUrlFromProfile;
             Toast.makeText(getActivity(),"Please Choose image", Toast.LENGTH_LONG).show();
         }
     }
 
 
     public void upload(){
-        final StorageReference filePath = mStorage.child("Photo_profile").child("Profile_" + uid);
-        final UploadTask uploadTask = filePath.putFile(uri);
+        if(!isUserPickImage) {
+            downloadImageUrl = imgUrlFromProfile;
+            EditText edit_name = ((EditText)getActivity().findViewById(R.id.edit_name));
+            EditText edit_tel = ((EditText)getActivity().findViewById(R.id.edit_tel));
+            Customer cus = new Customer(edit_name.getText().toString(), edit_tel.getText().toString()
+                    ,downloadImageUrl);
 
-        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                    @Override
-                    public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                        if(!task.isSuccessful()){
-                            throw task.getException();
-                        }
-                        downloadImageUrl = filePath.getDownloadUrl().toString();
-                        return filePath.getDownloadUrl();
-                    }
-                }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        downloadImageUrl = task.getResult().toString();
-                        EditText edit_name = ((EditText)getActivity().findViewById(R.id.edit_name));
-                        EditText edit_tel = ((EditText)getActivity().findViewById(R.id.edit_tel));
-                        Customer cus = new Customer(edit_name.getText().toString(), edit_tel.getText().toString()
-                                ,downloadImageUrl);
+            db.collection("customer").document((" Member " + uid))
+                    .set(cus).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(getActivity(),"Edit your profile success", Toast.LENGTH_LONG).show();
+                }
+            });
+        }else {
+            final StorageReference filePath = mStorage.child("Photo_profile").child("Profile_" + uid);
+            final UploadTask uploadTask = filePath.putFile(uri);
 
-                        db.collection("customer").document((" Member " + uid))
-                                .set(cus).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getActivity(),"Edit your profile success", Toast.LENGTH_LONG).show();
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if(!task.isSuccessful()){
+                                throw task.getException();
                             }
-                        });
+                            downloadImageUrl = filePath.getDownloadUrl().toString();
+                            return filePath.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            downloadImageUrl = task.getResult().toString();
+                            Log.d("EditProfile  :", "onComplete: " + downloadImageUrl);
+                            EditText edit_name = ((EditText)getActivity().findViewById(R.id.edit_name));
+                            EditText edit_tel = ((EditText)getActivity().findViewById(R.id.edit_tel));
+                            Customer cus = new Customer(edit_name.getText().toString(), edit_tel.getText().toString()
+                                    ,downloadImageUrl);
+                            db.collection("customer").document((" Member " + uid))
+                                    .set(cus).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(getActivity(),"Edit your profile success", Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                    });
 
-                        Toast.makeText(getActivity(),"Uploading finished... ", Toast.LENGTH_LONG).show();
-                    }
-                });
 
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(),"Uploading Fail, Sorry u must have logged in. ", Toast.LENGTH_LONG).show();
+                    Log.d("Edit Profile", "Fail because user don't signed in to system");
+                }
+            });
+        }
+    }
 
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+    public void initBackBtn(){
+        back_btn_edit_profile.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getActivity(),"Uploading Fail, Sorry u must have logged in. ", Toast.LENGTH_LONG).show();
-                Log.d("Edit Profile", "Fail because user don't signed in to system");
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_view, new ProfileFragment())
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
+
+
+
 }

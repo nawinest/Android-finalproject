@@ -42,16 +42,4 @@
         app:layout_constraintStart_toStartOf="@+id/date_list_plan"
         app:layout_constraintTop_toBottomOf="@+id/date_list_plan" />
 
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="120px"
-        android:layout_height="120px"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/note_list_plan"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/name_list_plan"
-        app:srcCompat="@drawable/icon_edit_yellowbg" />
 </android.support.constraint.ConstraintLayout>

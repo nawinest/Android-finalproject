@@ -51,7 +51,7 @@ public class PlanFromFragment extends Fragment {
         db = getActivity().openOrCreateDatabase("my.db", Context.MODE_PRIVATE, null);
         initBackbtn();
         Bundle bd = getArguments();
-        name_plan = ((TextView)getView().findViewById(R.id.name_list_plan));
+        name_plan = ((TextView)getView().findViewById(R.id.name_th_form));
         date = ((TextView)getView().findViewById(R.id.date_picker_form));
         note = ((EditText)getView().findViewById(R.id.note_form));
 
@@ -72,6 +72,7 @@ public class PlanFromFragment extends Fragment {
         if(bd != null){
             name = bd.getString("name_restuarant_th");
             Log.d("Plan Form : " , name);
+            name_plan.setText(name);
 
         }
         initAdd_plan_btn();
@@ -90,18 +91,31 @@ public class PlanFromFragment extends Fragment {
 
     public void initAdd_plan_btn(){
         Button bt = getActivity().findViewById(R.id.add_plan_btn);
-
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContentValues content = new ContentValues();
-                content.put("name", name_plan.getText().toString());
-                content.put("date" , date.getText().toString() );
-                content.put("note" , note.getText().toString() );
-                db.insert("user_plan_"+_user.getUid(),null,content);
-                FragmentManager fm = getFragmentManager();
-                fm.popBackStack();
-                Toast.makeText(getActivity(),"บันทึกแผนเรียบร้อยแล้วครับ",Toast.LENGTH_LONG);
+                String note_2 = "";
+                if(date.getText().toString().equals("กรุณาระบุวันที่")){
+                    Toast.makeText(getActivity().getApplicationContext(),"กรุณาระบุวันที่ครับ",Toast.LENGTH_LONG).show();
+                    Log.d("Plan Form : ", "user don't input date");
+                }
+                else{
+                    if(note.getText().toString().equals("กรุณาระบุรายละเอียดของคุณ")){
+                        note_2 = "-";
+                    }else{
+                        note_2 = note.getText().toString();
+                    }
+                    ContentValues content = new ContentValues();
+                    content.put("name", name_plan.getText().toString());
+                    content.put("date" , date.getText().toString() );
+                    content.put("note" , note_2 );
+                    db.insert("user_plan_"+_user.getUid(),null,content);
+                    Toast.makeText(getActivity().getBaseContext(),"บันทึกแผนเรียบร้อยแล้วครับ",Toast.LENGTH_LONG).show();
+                    FragmentManager fm = getFragmentManager();
+                    fm.popBackStack();
+                }
+
+
             }
         });
     }
