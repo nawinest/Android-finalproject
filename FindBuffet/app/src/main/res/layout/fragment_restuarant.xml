@@ -12,13 +12,13 @@
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/radius_border_yellow"
         android:fontFamily="@font/prompt_bold"
         android:text="ดูแผนที่"
         android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_restuarant" />
 
     <Button
         android:id="@+id/addplan_btn_rest"
@@ -26,16 +26,16 @@
         android:layout_height="39dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/radius_border_yellow_solid"
         android:fontFamily="@font/prompt_bold"
         android:text="เพิ่มเข้าแผน"
         android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/showmap_btn_rest" />
+        app:layout_constraintStart_toEndOf="@+id/showmap_btn_rest"
+        app:layout_constraintTop_toBottomOf="@+id/image_restuarant" />
 
     <Button
         android:id="@+id/back_btn_restuarant"
@@ -69,36 +69,38 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/thumnail_image_rest"
+        android:id="@+id/image_restuarant"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="70dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="199dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="39dp"
         android:adjustViewBounds="true"
         android:background="@drawable/round_outline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toTopOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.060000002"
+        app:layout_constraintTop_toBottomOf="@+id/back_btn_restuarant"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/buffet_1" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/name_en_restuarant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginTop="8dp"
         android:text="NetaGrill Sukhumvit"
         android:textAllCaps="true"
         android:textColor="@android:color/black"
         android:textSize="24sp"
         app:fontFamily="@font/prompt_bold"
-        app:layout_constraintStart_toStartOf="@+id/thumnail_image_rest"
-        app:layout_constraintTop_toBottomOf="@+id/thumnail_image_rest" />
+        app:layout_constraintStart_toStartOf="@+id/image_restuarant"
+        app:layout_constraintTop_toBottomOf="@+id/showmap_btn_rest" />
 
     <TextView
         android:id="@+id/textView8"
@@ -109,8 +111,8 @@
         android:textSize="12sp"
         android:textStyle="bold"
         app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toStartOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintStart_toStartOf="@+id/name_en_restuarant"
+        app:layout_constraintTop_toBottomOf="@+id/name_en_restuarant" />
 
     <TextView
         android:id="@+id/textView12"
@@ -120,7 +122,7 @@
         android:layout_marginLeft="28dp"
         android:text="ที่อยู่"
         android:textColor="@android:color/black"
-        android:textSize="10sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:fontFamily="@font/prompt_light"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
@@ -136,7 +138,7 @@
         android:layout_marginLeft="28dp"
         android:text="ติดต่อ"
         android:textColor="@android:color/black"
-        android:textSize="10sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:fontFamily="@font/prompt_light"
         app:layout_constraintStart_toEndOf="@+id/imageView5"
@@ -150,7 +152,7 @@
         android:layout_marginLeft="28dp"
         android:text="เวลาเปิด / ปิด"
         android:textColor="@android:color/black"
-        android:textSize="10sp"
+        android:textSize="14sp"
         android:textStyle="bold"
         app:fontFamily="@font/prompt_light"
         app:layout_constraintStart_toEndOf="@+id/imageView7"
@@ -164,7 +166,7 @@
         android:layout_marginRight="24dp"
         android:text="ร้านอยู่ตรงข้ามซอย ประชาสงเคราะห์17  ถนน ประชาสงเคราะห์ แขวงดินแดง  เขตดินแดง กรุงเทพมหานคร"
         android:textColor="@android:color/black"
-        android:textSize="10sp"
+        android:textSize="14sp"
         app:fontFamily="@font/prompt_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView12"
@@ -178,39 +180,25 @@
         android:layout_marginRight="24dp"
         android:text="085-995-0609"
         android:textColor="@android:color/black"
-        android:textSize="10sp"
+        android:textSize="14sp"
         app:fontFamily="@font/prompt_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView14"
         app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
     <TextView
-        android:id="@+id/tel_restuarant2"
+        android:id="@+id/time_restuarant"
         android:layout_width="286dp"
         android:layout_height="wrap_content"
         android:text="เปิดให้บริการทุกวัน: 12.00-22.00น."
         android:textColor="@android:color/black"
-        android:textSize="10sp"
+        android:textSize="14sp"
         app:fontFamily="@font/prompt_light"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="สถานะ :"
-        android:textColor="@android:color/black"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/type_restuarant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -221,21 +209,7 @@
         android:textStyle="bold"
         app:fontFamily="@font/prompt_light"
         app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:text="เปิดอยู่"
-        android:textColor="@android:color/holo_green_dark"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toEndOf="@+id/textView10"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        app:layout_constraintTop_toBottomOf="@+id/name_en_restuarant" />
 
     <ImageView
         android:id="@+id/imageView3"

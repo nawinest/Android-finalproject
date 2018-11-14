@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.nawinc27.mac.findbuffet.Model.Buffet;
 import com.nawinc27.mac.findbuffet.R;
 
@@ -42,15 +45,21 @@ public class BuffetAdapter extends BaseAdapter implements Filterable {
 
     @Override
     public long getItemId(int position) {
-        return buffets.indexOf(position);
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View buffetItem = LayoutInflater.from(context).inflate(R.layout.buffetlist_item, parent, false);
-        TextView name_th = buffetItem.findViewById(R.id.name_th);
+        TextView name_th = buffetItem.findViewById(R.id.name_th_plan);
         TextView name_en = buffetItem.findViewById(R.id.name_en);
+        ImageView image_buffet = buffetItem.findViewById(R.id.image_buffet);
 
+        Glide.with(context).load(buffets.get(position).getImage_url().get(0))
+                .apply(new RequestOptions()
+                        .placeholder(R.mipmap.ic_launcher)
+                        .centerCrop().circleCrop())
+                .into(image_buffet);
         name_th.setText(buffets.get(position).getName_th());
         name_en.setText(buffets.get(position).getName_en());
         return buffetItem;
@@ -71,9 +80,10 @@ public class BuffetAdapter extends BaseAdapter implements Filterable {
             if (constraint != null && constraint.length() > 0){
                 constraint = constraint.toString().toUpperCase();
                 ArrayList<Buffet> filters = new ArrayList<Buffet>();
-
+                Log.d("Filtering", "Constraint is : " + constraint);
                 for (int i = 0 ;i < filterList.size() ; i ++){
-                    if(filterList.get(i).getName_en().contains(constraint)){
+                    if(filterList.get(i).getName_en().toUpperCase().contains(constraint)){
+                        Log.d("Filtering", "performFiltering: " + filterList.get(i).getName_en());
                         Buffet b = new Buffet(filterList.get(i).getName_th(),
                                 filterList.get(i).getName_en(),
                                 filterList.get(i).getAddress(),

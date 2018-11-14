@@ -33,9 +33,6 @@ public class MainPageFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ImageView banner = (ImageView) getActivity().findViewById(R.id.banner1);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            banner.setClipToOutline(true);
-        }
         ScrollView sv = (ScrollView) getActivity().findViewById(R.id.scroll_menu);
         sv.scrollTo(0, 0);
 
@@ -48,11 +45,11 @@ public class MainPageFragment extends Fragment {
             uid = _user.getUid();
             Log.d("MainActivities Log : ", "USER logged in");
             //open database or create for use app at first time
-            myDB.execSQL("CREATE TABLE IF NOT EXISTS "+uid+"(_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            myDB.execSQL("CREATE TABLE IF NOT EXISTS "+"user_plan_"+uid+"(_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "name VARCHAR(255), " +
                     "date VARCHAR(255)," +
-                    "time VARCHAR(255))");
-            Log.d("MainActivities Log : ",uid);
+                    "note TEXT)");
+            Log.d("MainActivities Log : ",uid + "create or get LocalStorage success");
         }
 
 
@@ -63,7 +60,7 @@ public class MainPageFragment extends Fragment {
         adapter.clear();
 
 
-        menus.add((new Menu("บุฟเฟต์ซีฟู้่ด", "Seafood Buffet", "#")));
+        menus.add((new Menu("บุฟเฟต์ซีฟูู้ด", "Seafood Buffet", "#")));
         menus.add((new Menu("บุฟเฟ่ต์ของหวาน", "Dessert Buffet", "#")));
         menus.add((new Menu("บุฟเฟ่ต์อาหารญี่ปุ่น", "Japanese Food Buffet", "#")));
         menus.add((new Menu("บุฟเฟ่ต์เนื้อ", "Beef Buffet", "#")));
@@ -76,8 +73,10 @@ public class MainPageFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String name_foodGroup = menus.get(position).getName();
+                String name_foodGroup_en = menus.get(position).getNameEng();
                 Bundle bd = new Bundle();
                 bd.putString("name_group", name_foodGroup);
+                bd.putString("name_group_en", name_foodGroup_en);
                 BuffetList_fragment bf = new BuffetList_fragment();
                 bf.setArguments(bd);
                 getActivity().getSupportFragmentManager()

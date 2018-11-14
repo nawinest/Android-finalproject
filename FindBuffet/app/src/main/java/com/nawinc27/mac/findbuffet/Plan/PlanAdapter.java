@@ -34,12 +34,11 @@ public class PlanAdapter extends ArrayAdapter<Plan> {
         View plan_item = LayoutInflater.from(con).inflate(R.layout.planlist_item, parent, false);
         TextView name = plan_item.findViewById(R.id.name_list_plan);
         TextView date = plan_item.findViewById(R.id.date_list_plan);
-        TextView time = plan_item.findViewById(R.id.time_list_plan);
-
+        TextView note = plan_item.findViewById(R.id.note_list_plan);
 
         name.setText(plans.get(position).get_name());
         date.setText(plans.get(position).get_date_plan());
-        time.setText(plans.get(position).get_time_plan());
+        note.setText(plans.get(position).get_note_plan());
         return plan_item;
     }
 }

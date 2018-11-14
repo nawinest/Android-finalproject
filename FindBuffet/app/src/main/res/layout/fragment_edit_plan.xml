@@ -68,8 +68,8 @@
                 android:textColor="#747474"
                 android:textSize="20dp"
                 card_view:fontFamily="@font/prompt_light"
-                card_view:layout_constraintBaseline_toBaselineOf="@+id/textView9"
-                card_view:layout_constraintStart_toEndOf="@+id/textView9" />
+                card_view:layout_constraintBaseline_toBaselineOf="@+id/type_restuarant"
+                card_view:layout_constraintStart_toEndOf="@+id/type_restuarant" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -99,7 +99,7 @@
                 card_view:layout_constraintTop_toBottomOf="@+id/textView5" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/type_restuarant"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"

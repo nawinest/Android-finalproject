@@ -11,14 +11,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.nawinc27.mac.findbuffet.Main_menu.MainPageFragment;
 import com.nawinc27.mac.findbuffet.Model.Plan;
 import com.nawinc27.mac.findbuffet.Profile.ProfileFragment;
 import com.nawinc27.mac.findbuffet.R;
@@ -44,17 +41,17 @@ public class PlanFragment extends Fragment {
         initBackBtn();
 
         //get database
-        String uid = _user.getUid();
+        final String uid = _user.getUid();
         Log.d("Plan Fragment : " , "user id : " + uid);
         final SQLiteDatabase db = getActivity().openOrCreateDatabase("my.db", Context.MODE_PRIVATE, null);
         //query from database by table sleep_table [cursor]
-        Cursor pointer_query = db.rawQuery("select * from "+uid, null);
+        Cursor pointer_query = db.rawQuery("select * from "+"user_plan_"+uid, null);
         while (pointer_query.moveToNext()){
             int id = pointer_query.getInt(0);
             String name = pointer_query.getString(1);
             String date = pointer_query.getString(2);
-            String time = pointer_query.getString(3);
-            plans.add(new Plan(id, name, date , time));
+            String note = pointer_query.getString(3);
+            plans.add(new Plan(id, name, date , note));
         }
 
         planAdapter.sort(new Comparator<Plan>() {
@@ -67,12 +64,11 @@ public class PlanFragment extends Fragment {
 
 
         planAdapter.notifyDataSetChanged();
-
-        Button clr_history = getView().findViewById(R.id.delete_plan_list);
+        Button clr_history = getView().findViewById(R.id.clr_history);
         clr_history.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.execSQL("delete from sleep_table");
+                db.execSQL("delete from "+"user_plan_"+uid);
                 plans.clear();
                 planAdapter.notifyDataSetChanged();
             }

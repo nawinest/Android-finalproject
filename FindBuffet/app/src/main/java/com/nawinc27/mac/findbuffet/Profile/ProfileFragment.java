@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -50,10 +51,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ImageView img_pro = (ImageView) getActivity().findViewById(R.id.img_profile);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            img_pro.setClipToOutline(true);
-        }
+
         mUid = FirebaseAuth.getInstance().getCurrentUser();
         mAuth = FirebaseAuth.getInstance();
         mDB = FirebaseFirestore.getInstance();
@@ -143,8 +141,11 @@ public class ProfileFragment extends Fragment {
                                 profileName.setText(mName);
                                 profilePhone.setText(mPhone);
                                 profileEmail.setText(mEmail);
-                                Glide.with(getActivity()).load(mProfile_image).into(profile_img);
-
+                                Glide.with(getActivity()).load(mProfile_image)
+                                        .apply(new RequestOptions()
+                                                .placeholder(R.mipmap.ic_launcher)
+                                                .centerCrop().circleCrop())
+                                        .into(profile_img);
                             }
                     }
                 });

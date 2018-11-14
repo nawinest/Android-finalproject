@@ -32,7 +32,7 @@
         app:layout_constraintTop_toBottomOf="@+id/name_list_plan" />
 
     <TextView
-        android:id="@+id/time_list_plan"
+        android:id="@+id/note_list_plan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="เวลา : 22 : 00 น."
@@ -50,7 +50,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/time_list_plan"
+        app:layout_constraintBottom_toBottomOf="@+id/note_list_plan"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/name_list_plan"
         app:srcCompat="@drawable/icon_edit_yellowbg" />

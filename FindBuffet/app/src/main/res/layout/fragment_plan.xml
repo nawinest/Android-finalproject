@@ -64,7 +64,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <Button
-        android:id="@+id/delete_plan_list"
+        android:id="@+id/clr_history"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="70dp"
@@ -98,7 +98,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete_plan_list" />
+        app:layout_constraintTop_toBottomOf="@+id/clr_history" />
 
     <ListView
         android:id="@+id/plan_list"
