@@ -52,6 +52,9 @@ public class EditProfileFragment extends Fragment {
     private String imgUrlFromProfile;
     private boolean isUserPickImage = false;
     private Button back_btn_edit_profile;
+    private ProgressBar mProgressBar;
+    private TextView progress_text_edit_profile;
+
 
     @Nullable
     @Override
@@ -64,6 +67,7 @@ public class EditProfileFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         db = FirebaseFirestore.getInstance();
+
         Bundle bundle = getArguments();
         if(bundle != null){
             uid = bundle.getString("uid");
@@ -72,17 +76,21 @@ public class EditProfileFragment extends Fragment {
             getEditInfo(uid);
         }
 
-        mChoose = getActivity().findViewById(R.id.capture_img_editprofile);
+
         mUploader = getActivity().findViewById(R.id.edit_btn);
         mStorage = FirebaseStorage.getInstance().getReference();
         mProfile = getActivity().findViewById(R.id.profile_img_editprofile);
         back_btn_edit_profile = getActivity().findViewById(R.id.back_btn_edit_profile);
+        mProgressBar = getActivity().findViewById(R.id.progressBar);
+        progress_text_edit_profile = getActivity().findViewById(R.id.progress_text_edit_profile);
         initBackBtn();
 
         //change from choose button
         mProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgressBar.setProgress(0);
+                progress_text_edit_profile.setText("");
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent.createChooser(intent,"Choose App"), CAMERA_REQUEST_CODE);
@@ -127,30 +135,6 @@ public class EditProfileFragment extends Fragment {
             uri = data.getData();
             Picasso.with(getActivity()).load(uri).fit().centerCrop().into(mProfile);
             isUserPickImage = true;
-        }else{
-            isUserPickImage = false;
-            downloadImageUrl = imgUrlFromProfile;
-            Toast.makeText(getActivity(),"Please Choose image", Toast.LENGTH_LONG).show();
-        }
-    }
-
-
-    public void upload(){
-        if(!isUserPickImage) {
-            downloadImageUrl = imgUrlFromProfile;
-            EditText edit_name = ((EditText)getActivity().findViewById(R.id.edit_name));
-            EditText edit_tel = ((EditText)getActivity().findViewById(R.id.edit_tel));
-            Customer cus = new Customer(edit_name.getText().toString(), edit_tel.getText().toString()
-                    ,downloadImageUrl);
-
-            db.collection("customer").document((" Member " + uid))
-                    .set(cus).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(getActivity(),"Edit your profile success", Toast.LENGTH_LONG).show();
-                }
-            });
-        }else {
             final StorageReference filePath = mStorage.child("Photo_profile").child("Profile_" + uid);
             final UploadTask uploadTask = filePath.putFile(uri);
 
@@ -182,10 +166,9 @@ public class EditProfileFragment extends Fragment {
                                     Toast.makeText(getActivity(),"Edit your profile success", Toast.LENGTH_LONG).show();
                                 }
                             });
+                            progress_text_edit_profile.setText("สำเร็จ !!");
                         }
                     });
-
-
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -193,8 +176,35 @@ public class EditProfileFragment extends Fragment {
                     Toast.makeText(getActivity(),"Uploading Fail, Sorry u must have logged in. ", Toast.LENGTH_LONG).show();
                     Log.d("Edit Profile", "Fail because user don't signed in to system");
                 }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                    mProgressBar.setProgress((int) progress);
+                    progress_text_edit_profile.setText("ระบบกำลังอัพเดตรูปโปรไฟล์...");
+                }
             });
+        }else{
+            isUserPickImage = false;
+            downloadImageUrl = imgUrlFromProfile;
+            Toast.makeText(getActivity(),"Please Choose image", Toast.LENGTH_LONG).show();
         }
+    }
+
+
+    public void upload(){
+        EditText edit_name = ((EditText)getActivity().findViewById(R.id.edit_name));
+        EditText edit_tel = ((EditText)getActivity().findViewById(R.id.edit_tel));
+        Customer cus = new Customer(edit_name.getText().toString(), edit_tel.getText().toString()
+                ,downloadImageUrl);
+
+        db.collection("customer").document((" Member " + uid))
+                .set(cus).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(getActivity(),"Edit your profile success", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     public void initBackBtn(){
