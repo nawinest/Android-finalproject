@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -28,6 +30,10 @@ import com.nawinc27.mac.findbuffet.Buffet_List.BuffetList_fragment;
 import com.nawinc27.mac.findbuffet.Model.Buffet;
 import com.nawinc27.mac.findbuffet.Plan.PlanFromFragment;
 import com.nawinc27.mac.findbuffet.Profile.ProfileFragment;
+import com.nawinc27.mac.findbuffet.Restuarant.ViewPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RestuarantFragment extends Fragment {
 
@@ -38,6 +44,10 @@ public class RestuarantFragment extends Fragment {
     private Button showmap_btn_rest;
     private String lat;
     private String lng;
+    private ViewFlipper viewFlipper;
+    private  String TAG = "Restuarant Fragment";
+    private ArrayList<String> image_urls;
+    private ViewPager viewPager;
 
     @Nullable
     @Override
@@ -52,7 +62,7 @@ public class RestuarantFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mDB = FirebaseFirestore.getInstance();
         showmap_btn_rest = getActivity().findViewById(R.id.showmap_btn_rest);
-
+        viewPager = getActivity().findViewById(R.id.viewPager1);
 
 
         ImageView banner = (ImageView) getActivity().findViewById(R.id.image_restuarant);
@@ -82,7 +92,7 @@ public class RestuarantFragment extends Fragment {
                         Glide.with(getActivity()).load(buffet_info.getImage_url().get(1))
                                 .apply(new RequestOptions()
                                         .placeholder(R.mipmap.ic_launcher)
-                                        .centerCrop())
+                                        .centerCrop().circleCrop())
                                 .into(image_restuarant);
                         type.setText(buffet_info.getName_th());
                         name_en.setText(buffet_info.getName_en());
@@ -91,9 +101,11 @@ public class RestuarantFragment extends Fragment {
                         time.setText(buffet_info.getTime());
                         lat = buffet_info.getLat();
                         lng = buffet_info.getLng();
+                        image_urls = (ArrayList<String>) buffet_info.getImage_url();
                         Toast.makeText(getActivity(), "ขณะนี้กำลังอยู่ในร้าน : "+buffet_info.getName_th(),Toast.LENGTH_LONG);
                         initBackBtn();
                         initMap();
+                        initPager((ArrayList<String>) image_urls);
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -143,6 +155,7 @@ public class RestuarantFragment extends Fragment {
         });
     }
 
+
     public void initMap(){
         showmap_btn_rest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,5 +174,8 @@ public class RestuarantFragment extends Fragment {
         });
     }
 
-
+    public void initPager(ArrayList<String> image_urls){
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getActivity(),image_urls);
+        viewPager.setAdapter(viewPagerAdapter);
+    }
 }

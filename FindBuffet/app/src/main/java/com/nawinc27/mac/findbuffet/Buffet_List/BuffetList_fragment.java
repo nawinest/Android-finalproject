@@ -114,8 +114,6 @@ public class BuffetList_fragment extends Fragment {
             grid_adapter = new BuffetAdapter(getActivity() , (ArrayList<Buffet>) buffets);
             buffetGrid.setAdapter(grid_adapter);
             grid_adapter.notifyDataSetChanged();
-
-
             buffetGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -58,7 +58,7 @@ public class BuffetAdapter extends BaseAdapter implements Filterable {
         Glide.with(context).load(buffets.get(position).getImage_url().get(0))
                 .apply(new RequestOptions()
                         .placeholder(R.mipmap.ic_launcher)
-                        .centerCrop().circleCrop())
+                        .centerCrop())
                 .into(image_buffet);
         name_th.setText(buffets.get(position).getName_th());
         name_en.setText(buffets.get(position).getName_en());
