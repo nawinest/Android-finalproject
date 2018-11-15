@@ -35,6 +35,9 @@ public class RestuarantFragment extends Fragment {
     private FirebaseFirestore mDB;
     private FirebaseUser mUid;
     private Buffet buffet_info;
+    private Button showmap_btn_rest;
+    private String lat;
+    private String lng;
 
     @Nullable
     @Override
@@ -48,6 +51,7 @@ public class RestuarantFragment extends Fragment {
         mUid = FirebaseAuth.getInstance().getCurrentUser();
         mAuth = FirebaseAuth.getInstance();
         mDB = FirebaseFirestore.getInstance();
+        showmap_btn_rest = getActivity().findViewById(R.id.showmap_btn_rest);
 
 
 
@@ -85,8 +89,11 @@ public class RestuarantFragment extends Fragment {
                         address.setText(buffet_info.getAddress());
                         contact.setText(buffet_info.getTelephone());
                         time.setText(buffet_info.getTime());
+                        lat = buffet_info.getLat();
+                        lng = buffet_info.getLng();
                         Toast.makeText(getActivity(), "ขณะนี้กำลังอยู่ในร้าน : "+buffet_info.getName_th(),Toast.LENGTH_LONG);
                         initBackBtn();
+                        initMap();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -130,6 +137,24 @@ public class RestuarantFragment extends Fragment {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.main_view, planFromFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+    }
+
+    public void initMap(){
+        showmap_btn_rest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bd_to_map = new Bundle();
+                bd_to_map.putString("lat", lat);
+                bd_to_map.putString("lng", lng);
+                MapFragment map_fragment = new MapFragment();
+                map_fragment.setArguments(bd_to_map);
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.main_view, map_fragment)
                         .addToBackStack(null)
                         .commit();
             }
