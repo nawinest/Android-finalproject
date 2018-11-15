@@ -3,9 +3,9 @@ package com.nawinc27.mac.findbuffet.Main_menu;
 public class Menu {
     private String name;
     private String nameEng;
-    private String path_image;
+    private int path_image;
 
-    public Menu(String name, String nameEng, String path_image) {
+    public Menu(String name, String nameEng, int path_image) {
         this.name = name;
         this.nameEng = nameEng;
         this.path_image = path_image;
@@ -29,11 +29,11 @@ public class Menu {
         this.nameEng = nameEng;
     }
 
-    public String getPath_image() {
+    public int getPath_image() {
         return path_image;
     }
 
-    public void setPath_image(String path_image) {
+    public void setPath_image(int path_image) {
         this.path_image = path_image;
     }
 }

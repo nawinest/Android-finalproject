@@ -36,7 +36,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             lng = bd.getString("lng");
             initBackBtn();
         }
-
     }
 
     public void initBackBtn(){

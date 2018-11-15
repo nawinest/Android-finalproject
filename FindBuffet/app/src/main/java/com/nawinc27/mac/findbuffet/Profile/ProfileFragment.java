@@ -147,11 +147,7 @@ public class ProfileFragment extends Fragment {
                                 profileName.setText(mName);
                                 profilePhone.setText(mPhone);
                                 profileEmail.setText(mEmail);
-                                Glide.with(getActivity()).load(mProfile_image)
-                                        .apply(new RequestOptions()
-                                                .placeholder(R.mipmap.ic_launcher)
-                                                .centerCrop().circleCrop())
-                                        .into(profile_img);
+                                Picasso.with(getActivity()).load(mProfile_image).fit().centerCrop().placeholder(R.mipmap.ic_launcher).into(profile_img);
 
                             }
                     }

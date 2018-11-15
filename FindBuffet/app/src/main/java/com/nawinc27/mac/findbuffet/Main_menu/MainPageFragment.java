@@ -60,13 +60,12 @@ public class MainPageFragment extends Fragment {
         adapter.clear();
 
 
-        menus.add((new Menu("บุฟเฟต์ซีฟูู้ด", "Seafood Buffet", "#")));
-        menus.add((new Menu("บุฟเฟ่ต์ของหวาน", "Dessert Buffet", "#")));
-        menus.add((new Menu("บุฟเฟ่ต์อาหารญี่ปุ่น", "Japanese Food Buffet", "#")));
-        menus.add((new Menu("บุฟเฟ่ต์เนื้อ", "Beef Buffet", "#")));
-        menus.add((new Menu("บุฟเฟ่ต์อาหารไทย", "Thai food Buffet", "#")));
-        menus.add((new Menu("บุฟเฟ่ต์ทั่วไป", "Other Buffet", "#")));
-
+        menus.add((new Menu("บุฟเฟต์ซีฟูู้ด", "Seafood Buffet", R.drawable.first)));
+        menus.add((new Menu("บุฟเฟ่ต์ของหวาน", "Dessert Buffet", R.drawable.second)));
+        menus.add((new Menu("บุฟเฟ่ต์อาหารญี่ปุ่น", "Japanese Food Buffet", R.drawable.third)));
+        menus.add((new Menu("บุฟเฟ่ต์เนื้อ", "Beef Buffet", R.drawable.four)));
+        menus.add((new Menu("บุฟเฟ่ต์อาหารไทย", "Thai food Buffet", R.drawable.five)));
+        menus.add((new Menu("บุฟเฟ่ต์ทั่วไป", "Other Buffet", R.drawable.six)));
 
         adapter.notifyDataSetChanged();
         menu_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {

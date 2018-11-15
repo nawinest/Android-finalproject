@@ -6,204 +6,203 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#000">
 
-    <ImageView
-        android:id="@+id/profile_banner"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:adjustViewBounds="true"
-        android:cropToPadding="true"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bg_black_opa60" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/profile_signout_button">
 
-    <ImageView
-        android:id="@+id/img_profile"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginRight="100dp"
-        android:layout_marginBottom="400dp"
-        android:adjustViewBounds="true"
-        android:background="@drawable/round_outline_profile"
-        android:cropToPadding="true"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.454"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/back_btn_profile"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/buffet_1" />
-
-    <TextView
-        android:id="@+id/profile_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="User Information"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toStartOf="@+id/profile_textView3"
-        app:layout_constraintTop_toBottomOf="@+id/img_profile" />
-
-    <TextView
-        android:id="@+id/profile_textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="- - - - - - - - - - - - - - - - - - - - - "
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_profile" />
-
-    <TextView
-        android:id="@+id/profile_textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="62dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="2dp"
-        android:text="โปรไฟล์"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/prompt_bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_textView6" />
-
-    <TextView
-        android:id="@+id/profile_textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="ชื่อ"
-        android:textSize="14sp"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toStartOf="@+id/profile_textView"
-        app:layout_constraintTop_toBottomOf="@+id/profile_textView" />
-
-    <TextView
-        android:id="@+id/profile_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="นาวิน พูลสวัสดิ์"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toStartOf="@+id/profile_textView2"
-        app:layout_constraintTop_toBottomOf="@+id/profile_textView2" />
-
-    <TextView
-        android:id="@+id/profile_textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="อีเมลล์"
-        android:textSize="12sp"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toStartOf="@+id/profile_name"
-        app:layout_constraintTop_toBottomOf="@+id/profile_name" />
-
-    <TextView
-        android:id="@+id/profile_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="nawinc.work@gmail.com"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toStartOf="@+id/profile_textView4"
-        app:layout_constraintTop_toBottomOf="@+id/profile_textView4" />
-
-    <TextView
-        android:id="@+id/prifile_textview6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="เบอร์โทรติดต่อ"
-        android:textSize="12sp"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toStartOf="@+id/profile_email"
-        app:layout_constraintTop_toBottomOf="@+id/profile_email" />
-
-    <TextView
-        android:id="@+id/profile_phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="097 - 0699988"
-        android:textSize="18sp"
-        app:fontFamily="@font/prompt_light"
-        app:layout_constraintStart_toStartOf="@+id/prifile_textview6"
-        app:layout_constraintTop_toBottomOf="@+id/prifile_textview6" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
 
 
-    <Button
-        android:id="@+id/back_btn_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
+            <ImageView
+                android:id="@+id/img_profile"
+                android:layout_width="0dp"
+                android:layout_height="340dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/round_outline_profile"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.454"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/buffet_1" />
 
-        android:fontFamily="@font/prompt_bold"
-        android:background="@drawable/radius_border_yellow_solid"
-        android:text="กลับ"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/img_wrapper"
+                android:layout_width="0dp"
+                android:layout_height="340dp"
+                android:adjustViewBounds="true"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.454"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/gradient_shape" />
 
-    <Button
-        android:id="@+id/seeplan_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="43dp"
-        android:background="@color/colorPrimaryDark"
-        android:fontFamily="@font/prompt_bold"
-        android:text="ดูแผน"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="@+id/back_btn_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/back_btn_profile" />
+            <TextView
+                android:id="@+id/profile_textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Information"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/prompt_light"
+                app:layout_constraintStart_toStartOf="@+id/profile_textView3"
+                app:layout_constraintTop_toBottomOf="@+id/profile_textView3" />
+
+            <TextView
+                android:id="@+id/profile_textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="62dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="8dp"
+                android:text="โปรไฟล์"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="42dp"
+                android:textStyle="bold"
+                app:fontFamily="@font/prompt_bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_wrapper" />
+
+            <TextView
+                android:id="@+id/profile_textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="ชื่อ"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:fontFamily="@font/prompt_light"
+                app:layout_constraintStart_toStartOf="@+id/profile_textView"
+                app:layout_constraintTop_toBottomOf="@+id/profile_textView" />
+
+            <TextView
+                android:id="@+id/profile_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="นาวิน พูลสวัสดิ์"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/prompt_light"
+                app:layout_constraintStart_toStartOf="@+id/profile_textView2"
+                app:layout_constraintTop_toBottomOf="@+id/profile_textView2" />
+
+            <TextView
+                android:id="@+id/profile_textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="อีเมลล์"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:fontFamily="@font/prompt_light"
+                app:layout_constraintStart_toStartOf="@+id/profile_name"
+                app:layout_constraintTop_toBottomOf="@+id/profile_name" />
+
+            <TextView
+                android:id="@+id/profile_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="nawinc.work@gmail.com"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:fontFamily="@font/prompt_light"
+                app:layout_constraintStart_toStartOf="@+id/profile_textView4"
+                app:layout_constraintTop_toBottomOf="@+id/profile_textView4" />
+
+            <TextView
+                android:id="@+id/prifile_textview6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="เบอร์โทรติดต่อ"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:fontFamily="@font/prompt_light"
+                app:layout_constraintStart_toStartOf="@+id/profile_email"
+                app:layout_constraintTop_toBottomOf="@+id/profile_email" />
+
+            <TextView
+                android:id="@+id/profile_phone_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:text="097 - 0699988"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:fontFamily="@font/prompt_light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/prifile_textview6"
+                app:layout_constraintTop_toBottomOf="@+id/prifile_textview6" />
+
+
+            <Button
+                android:id="@+id/back_btn_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+
+                android:background="@drawable/radius_border"
+                android:fontFamily="@font/prompt_bold"
+                android:text="กลับ"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/seeplan_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="43dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/radius_border_yellow"
+                android:fontFamily="@font/prompt_bold"
+                android:text="ดูแผน"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="@+id/back_btn_profile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/back_btn_profile" />
+
+
+            <ImageView
+                android:id="@+id/edit_profile_btn"
+                android:layout_width="130px"
+                android:layout_height="130px"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/profile_textView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/profile_textView3"
+                app:srcCompat="@drawable/icon_edit_yellowbg" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/profile_signout_button"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@color/colorPrimaryDark"
         android:fontFamily="@font/prompt_bold"
         android:text="ออกจากระบบ"
-        android:textColor="@color/colorWhite"
+        android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/edit_profile_btn"
-        android:layout_width="80px"
-        android:layout_height="80px"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/profile_textView"
-        app:layout_constraintStart_toEndOf="@+id/profile_textView3"
-        app:layout_constraintTop_toTopOf="@+id/profile_textView3"
-        app:srcCompat="@drawable/icon_edit_yellowbg" />
 
 </android.support.constraint.ConstraintLayout>
