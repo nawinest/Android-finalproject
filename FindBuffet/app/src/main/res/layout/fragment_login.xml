@@ -7,6 +7,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/background_bottom" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -84,16 +94,6 @@
         app:layout_constraintStart_toStartOf="@+id/email_input_register"
         app:layout_constraintTop_toBottomOf="@+id/email_input_register" />
 
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/background_bottom" />
 
     <Button
         android:textColor="@color/colorWhite"

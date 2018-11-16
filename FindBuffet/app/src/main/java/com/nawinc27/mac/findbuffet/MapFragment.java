@@ -73,7 +73,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         float lat_f = Float.parseFloat(lat);
         float lng_f = Float.parseFloat(lng);
         LatLng sydney = new LatLng(lat_f, lng_f);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.addMarker(new MarkerOptions().position(sydney).title("ร้านของคุณ"));
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney,14));
     }
 }
