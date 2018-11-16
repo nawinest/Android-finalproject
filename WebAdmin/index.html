@@ -4,23 +4,46 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.3/firebase-firestore.js"></script>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/css.css">
         <script src="js/jquery-3.3.1.min.js"></script>
         <link href="https://fonts.googleapis.com/css?family=Prompt:300,500" rel="stylesheet">
+    <style media="screen">
+        body{
+            display:flex;
+            min-height: 100vh;
+            width: 100%;
+            padding:0;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+        }
+        #uploader {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 50;
+            margin-bottom: 10px;
+        }
+        </style>
+        <style media="screen">=
+        </style>
     </head>
     <body>
     <div class="container">
         <h1 class="topic">เพิ่มข้อมูลร้านอาหาร</h1>
         <p>Add Buffet restuarant by Admin only</p>
         <div>
-            <form  class="pick-map-wrap">
+            <form  class="pick-map-wrap" id="add_restuarant">
                 <div class="name_buffet sep">
                         <div class="label-input">
                             ชื่อร้าน <span class="important">*</span>
                         <br>
-                        <input class="input-box" id="" type="text" placeholder="เพิ่มชื่อร้าน">
-                        <input class="ip3" id="" type="text" placeholder="Add name">
+                        <input class="input-box" id="name_th" type="text" placeholder="เพิ่มชื่อร้าน">
+                        <input class="ip3" id="name_eng" type="text" placeholder="Add name">
                         
                     </div>
                 </div>
@@ -29,7 +52,7 @@
                         <div class="label-input">
                             ที่อยู่แบบละเอียด <span class="important">*</span>
                         <br>
-                        <textarea class="input-box" id="" type="text" placeholder="เพิ่มชื่อร้าน"></textarea>
+                        <textarea class="input-box" id="address" type="text" placeholder="เพิ่มชื่อร้าน"></textarea>
                     </div>
                 </div>
 
@@ -37,7 +60,7 @@
                         <div class="label-input">
                             เบอร์โทร <span class="important">*</span>
                         <br>
-                        <input class="input-box" id="" type="text" placeholder="ex . 097 - 0699809">
+                        <input class="input-box" id="telephone" type="text" placeholder="ex . 097 - 0699809">
                     </div>
                 </div>
 
@@ -45,7 +68,7 @@
                         <div class="label-input">
                             เวลาเปิด / ปิด <span class="important">*</span>
                         <br>
-                        <input class="input-box ip4" id="" type="text" placeholder="ex . เปิดทุกวันจันทร์ถึงศุกร์ 18:00 - 24 : 00">
+                        <input class="input-box ip4" id="time" type="text" placeholder="ex . เปิดทุกวันจันทร์ถึงศุกร์ 18:00 - 24 : 00">
                     </div>
                 </div>
 
@@ -53,16 +76,16 @@
                     <div class="label-input">
                         ประเภทของงานที่เหมาะสมกับพื้นที่ของคุณ? <span class="important">*</span>
                         <div class="radio_group">
-                        <input type="radio"  value="1"> บุฟเฟซีฟู้ด                                           <br>
-                        <input type="radio" value="2"> บุฟเฟ่ต์ของหวาน
+                        <input id="type1" type="radio"  value="1"> บุฟเฟซีฟู้ด                                           <br>
+                        <input id="type2" type="radio" value="2"> บุฟเฟ่ต์ของหวาน
                         <br>
-                        <input type="radio"  value="3"> บุฟเฟ่ต์อาหารญี่ปุ่น
+                        <input id="type3" type="radio"  value="3"> บุฟเฟ่ต์อาหารญี่ปุ่น
                         <br>
-                        <input type="radio"  value="4"> บุฟเฟ่ต์เนื้อ
+                        <input id="type4" type="radio"  value="4"> บุฟเฟ่ต์เนื้อ
                         <br>
-                        <input type="radio"  value="5"> บุฟเฟ่ต์อาหารไทย
+                        <input id="type5" type="radio"  value="5"> บุฟเฟ่ต์อาหารไทย
                         <br>
-                        <input type="radio"  value="6"> บุฟเฟ่ต์ทั่วไป
+                        <input id="type6" type="radio"  value="6"> บุฟเฟ่ต์ทั่วไป
                         </div>
                     </div>
                 </div>
@@ -72,7 +95,9 @@
                     <div class="label-input">
                         รูปภาพสถานที่ (จำกัดแค่สองรูป) <span class="important">*</span>                        </div>
                     <div class="">
-                        <input type="file" name="file" id="picture_place" multiple="true">
+                            <input type="file" id="upload"  multiple="true" required/>
+                            
+                           
                     </div>
                 </div>
 
@@ -102,10 +127,15 @@
     </div>
     
 
-    
+
     <script src="js/googleMapCustom.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAXS40rABuuIrWI7ks0h-1NxNTp7BReXbg&libraries=places&callback=initMap" async defer></script>
     <script src="js/app.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+    
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="js/Admin.js"></script>
+    
 </body>
 </html>
