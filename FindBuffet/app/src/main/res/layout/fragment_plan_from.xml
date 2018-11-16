@@ -126,7 +126,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/prompt_light"
-        android:text="กรุณาระบุรายละเอียดของคุณ"
+        android:hint="กรุณาระบุรายละเอียด"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/textView23"
         app:layout_constraintStart_toStartOf="@+id/date_picker_form"

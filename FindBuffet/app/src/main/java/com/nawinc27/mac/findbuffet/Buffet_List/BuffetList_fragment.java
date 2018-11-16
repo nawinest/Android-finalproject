@@ -81,11 +81,11 @@ public class BuffetList_fragment extends Fragment {
                 Toast.makeText(getActivity(), "Sorry , It have some problem with Program" , Toast.LENGTH_LONG).show();
             }
             buffets.clear();
-            buffets.add(new Buffet("ร้านลาวา","LAVA","41/51"
-                    ,"097-6998888","เปิดทุกวัน 12:00 - 24:00","13.722269","100.76162199999999"
-                    ,new ArrayList<String>(Arrays.asList("https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2FAumKum-22.jpg?alt=media&token=33be9ef2-e306-4c21-9973-adc11f4235d6"
-                    ,"https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2Ffoody-upload-api-foody-mobile-960x550-jpg-171031172448.jpg?alt=media&token=e2d3df00-aece-4928-a1d5-ec286d0f13a8"))));
-            Log.d("Services : " , "Finished");
+//            buffets.add(new Buffet("ร้านลาวา","LAVA","41/51"
+//                    ,"097-6998888","เปิดทุกวัน 12:00 - 24:00","13.722269","100.76162199999999"
+//                    ,new ArrayList<String>(Arrays.asList("https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2FAumKum-22.jpg?alt=media&token=33be9ef2-e306-4c21-9973-adc11f4235d6"
+//                    ,"https://firebasestorage.googleapis.com/v0/b/findbuffet-a597a.appspot.com/o/Aumkum%2Ffoody-upload-api-foody-mobile-960x550-jpg-171031172448.jpg?alt=media&token=e2d3df00-aece-4928-a1d5-ec286d0f13a8"))));
+//            Log.d("Services : " , "Finished");
             mDB.collection("Restuarant_Buffet").document(query_path).collection(query_path)
                     .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                 @Override
